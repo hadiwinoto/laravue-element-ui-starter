@@ -1,10 +1,10 @@
 <template>
-    <div class="container mt-2 mb-2">
-        <el-breadcrumb separator-class="el-icon-arrow-right">
-          <el-breadcrumb-item :to="{ path: '/' }"><span>Beranda</span></el-breadcrumb-item>
-          <el-breadcrumb-item><a href="/"></a></el-breadcrumb-item>
-        </el-breadcrumb>
-    </div>
+      <ul class="navbar-nav">
+          <el-breadcrumb separator-class="el-icon-arrow-right">
+          <el-breadcrumb-item :to="{ path: '/' }">Home</el-breadcrumb-item>
+          
+          </el-breadcrumb>         
+      </ul>
 </template>
 <script>
   export default {

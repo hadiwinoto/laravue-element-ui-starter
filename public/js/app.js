@@ -92876,7 +92876,17 @@ var staticRenderFns = [
                 "col-lg-6 d-lg-flex flex-lg-column justify-content-center align-items-stretch pt-5 pt-lg-0 order-2 order-lg-1",
               attrs: { "data-aos": "fade-up" },
             },
-            [_c("div")]
+            [
+              _c("div", [
+                _c("h1", [_c("b", [_vm._v("StarterApp")])]),
+                _vm._v(" "),
+                _c("h2", [_vm._v("Selamat Datang  di Starterkit Project")]),
+                _vm._v(" "),
+                _c("h2", [_vm._v("Laravue")]),
+                _vm._v(" "),
+                _c("h2", [_c("b", [_vm._v("#AplaceForLearner")])]),
+              ]),
+            ]
           ),
           _vm._v(" "),
           _c(
@@ -93201,18 +93211,16 @@ var render = function () {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c(
-    "div",
-    { staticClass: "container mt-2 mb-2" },
+    "ul",
+    { staticClass: "navbar-nav" },
     [
       _c(
         "el-breadcrumb",
         { attrs: { "separator-class": "el-icon-arrow-right" } },
         [
           _c("el-breadcrumb-item", { attrs: { to: { path: "/" } } }, [
-            _c("span", [_vm._v("Beranda")]),
+            _vm._v("Home"),
           ]),
-          _vm._v(" "),
-          _c("el-breadcrumb-item", [_c("a", { attrs: { href: "/" } })]),
         ],
         1
       ),

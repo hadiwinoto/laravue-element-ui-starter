@@ -20,27 +20,23 @@
 </head>
 <body>
     <div id="app">
-        <!-- <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
-                <ul class="navbar-nav ms-auto ml-4">
-                    <img
-                        class="mt-1"
-                        width="120px" height="44" 
-                        src="https://www.ojk.go.id/SiteAssets/logo2.png">
-                    </img>
-                </ul>
+        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
-                
-                <ul class="navbar-nav ms-auto">
+            <ul class="navbar-nav">
+                <img
+                    class="mt-1"
+                    width="120px" height="44" 
+                    src="https://www.ojk.go.id/SiteAssets/logo2.png">
+                </img>
+            </ul>
+                <ul class="navbar-nav">
                     <img
                         class="mt-1"
                         width="30px" height="30" 
                         src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.6MEn1wZkViQK-XUfpCl4ogHaHv%26pid%3DApi&f=1">
                     </img>
-                    
                     <li class="nav-item dropdown">
-                        <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                          
-                        </a>
+                        <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre></a>
                         <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                             <a class="dropdown-item" href="/profile">
                                 Admin
@@ -56,31 +52,16 @@
                         </div>
                     </li>
                 </ul>
-
             </div>
-        </nav> -->
-        <div class="container">
-                <el-menu :default-active="activeIndex" class="el-menu-demo" mode="horizontal" @select="handleSelect">
-                    <el-menu-item index="1">Dashboard</el-menu-item>
-                                <el-submenu index="2">
-                                    <template slot="title">Workspace</template>
-                                    <el-menu-item index="2-1">item one</el-menu-item>
-                                    <el-menu-item index="2-2">item two</el-menu-item>
-                                    <el-menu-item index="2-3">item three</el-menu-item>
-                                    <el-submenu index="2-4">
-                                    <template slot="title">item four</template>
-                                    <el-menu-item index="2-4-1">item one</el-menu-item>
-                                    <el-menu-item index="2-4-2">item two</el-menu-item>
-                                    <el-menu-item index="2-4-3">item three</el-menu-item>
-                                    </el-submenu>
-                                </el-submenu>
-                    <el-menu-item index="3" disabled>Info</el-menu-item>
-                </el-menu>
-        </div>
-            
+        </nav>
         <!-- @yield('subheader') -->
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm" style="border-top: 1px outset; ">
-            @yield('subheader')
+            
+             <div class="container">
+                <ul class="navbar-nav">
+                    @yield('subheader')
+                </ul>
+            </div>
         </nav>
         
         <main class="py-4">

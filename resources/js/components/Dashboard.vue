@@ -6,10 +6,10 @@
                     <div class="row">
                         <div class="col-lg-6 d-lg-flex flex-lg-column justify-content-center align-items-stretch pt-5 pt-lg-0 order-2 order-lg-1" data-aos="fade-up">
                         <div>
-                            <!-- <h1><b>StarterApp</b></h1>
+                            <h1><b>StarterApp</b></h1>
                             <h2>Selamat Datang  di Starterkit Project</h2>
                             <h2>Laravue</h2>
-                            <h2><b>#AplaceForLearner</b></h2> -->
+                            <h2><b>#AplaceForLearner</b></h2>
                         </div>
                         </div>
                         <div class="col-lg-6 d-lg-flex flex-lg-column align-items-stretch order-1 order-lg-2 hero-img" data-aos="fade-up">
