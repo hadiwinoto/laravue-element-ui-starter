@@ -20,13 +20,24 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::group(['middleware' => ['auth']], function () {
-
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-    Route::get('/spp', [App\Http\Controllers\HomeController::class, 'showSpp'])->name('spp');
+    Route::get('/maintenance', [App\Http\Controllers\Maintenance\MaintenanceController::class, 'indexMaintenance'])->name('maintenance');
+    Route::get('/master-data', [App\Http\Controllers\MasterDataController::class, 'indexMasterData'])->name('masterdata');
+    Route::get('/master-data/jenis-perbaikan', [App\Http\Controllers\MasterDataController::class,'indexPerbaikan'])->name('JenisPerbaikan');
 
+    Route::get('/master-data/fetch-perbaikan', [App\Http\Controllers\MasterDataController::class,'getJenisPerbaikan'])->name('getJenisPerbaikan');
+
+
+    Route::get('/maintenance/create', [App\Http\Controllers\Maintenance\MaintenanceController::class,'showZonaSatu'])->name('showZonaSatu');
+    Route::get('/maintenance/get/alldata', [App\Http\Controllers\Maintenance\MaintenanceController::class,'getData'])->name('getData');
+    Route::post('/maintenance/submit', [App\Http\Controllers\Maintenance\MaintenanceController::class,'submitMaintenance'])->name('submitMaintenance');
+    Route::get('/maintenance/{id}', [App\Http\Controllers\Maintenance\MaintenanceController::class,'detailMaintanance'])->name('detailMaintanance');
+    Route::get('/maintenance/data/getbyid', [App\Http\Controllers\Maintenance\MaintenanceController::class,'DetailData'])->name('DetailData');
+    Route::post('/maintenance/data/editdata', [App\Http\Controllers\Maintenance\MaintenanceController::class,'EditData'])->name('EditData');
 
     
-    Route::post('/api/submit/data', [App\Http\Controllers\HomeController::class, 'submitUpload'])->name('submit');
+    
+    // Route::get('/master-data/tempat-perbaikan', [App\Http\Controllers\MasterDataController::class, 'indexJenisPerbaikan'])->name('JenisPerbaikan');
 });
 
 

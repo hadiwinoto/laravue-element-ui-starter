@@ -1,7 +1,8 @@
 <template>
       <ul class="navbar-nav">
           <el-breadcrumb separator-class="el-icon-arrow-right">
-          <el-breadcrumb-item :to="{ path: '/' }">Home</el-breadcrumb-item></el-breadcrumb>         
+           <el-breadcrumb-item :to="{ path: '/master' }">Master Data</el-breadcrumb-item>
+          </el-breadcrumb>         
       </ul>
 </template>
 <script>
@@ -9,7 +10,7 @@
     data() {
       return {
         activeIndex: '1',
-        activeIndex2: '1'
+        activeIndex2: '2'
       };
     },
     methods: {

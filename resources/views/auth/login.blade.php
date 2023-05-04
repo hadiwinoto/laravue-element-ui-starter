@@ -77,7 +77,7 @@
                         class="img-fluid" alt="Sample image">
                     </div>
                     <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
-                    <h1 class="mb-5 me-3">Tracker</h1>
+                    <h1 class="mb-5 me-3">Maintenance </h1>
                         <form method="POST" action="{{ route('login') }}">
                         @csrf
                         <div class="d-flex flex-row align-items-center justify-content-center justify-content-lg-start ">

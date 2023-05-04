@@ -1,8 +1,11 @@
 <template>
-      <ul class="navbar-nav">
+      
           <el-breadcrumb separator-class="el-icon-arrow-right">
-          <el-breadcrumb-item :to="{ path: '/' }">Home</el-breadcrumb-item></el-breadcrumb>         
-      </ul>
+          <el-breadcrumb-item :to="{ path: '/maintenance' }">Maintenance</el-breadcrumb-item>
+          <el-breadcrumb-item>Detail</el-breadcrumb-item>
+          
+          </el-breadcrumb>         
+    
 </template>
 <script>
   export default {
