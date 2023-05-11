@@ -24,7 +24,6 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/maintenance', [App\Http\Controllers\Maintenance\MaintenanceController::class, 'indexMaintenance'])->name('maintenance');
     Route::get('/master-data', [App\Http\Controllers\MasterDataController::class, 'indexMasterData'])->name('masterdata');
     Route::get('/master-data/jenis-perbaikan', [App\Http\Controllers\MasterDataController::class,'indexPerbaikan'])->name('JenisPerbaikan');
-
     Route::get('/master-data/fetch-perbaikan', [App\Http\Controllers\MasterDataController::class,'getJenisPerbaikan'])->name('getJenisPerbaikan');
 
 
@@ -35,8 +34,6 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/maintenance/data/getbyid', [App\Http\Controllers\Maintenance\MaintenanceController::class,'DetailData'])->name('DetailData');
     Route::post('/maintenance/data/editdata', [App\Http\Controllers\Maintenance\MaintenanceController::class,'EditData'])->name('EditData');
 
-    
-    
     // Route::get('/master-data/tempat-perbaikan', [App\Http\Controllers\MasterDataController::class, 'indexJenisPerbaikan'])->name('JenisPerbaikan');
 });
 
