@@ -21,6 +21,10 @@ class MasterDataController extends Controller
 
         return view('master.jenisperbaikan');
     }
+
+    public function indexMasterTempatPerbaikan(){
+        return view('master.jenisperbaikan');
+    }
     public function getJenisPerbaikan(){
         $data =  $this->master_perbaikan->get();
         

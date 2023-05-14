@@ -68,6 +68,7 @@ Vue.component('maintenance-component', require('./components/maintenance.vue').d
 Vue.component('maintenance-component-detail', require('./components/detailMaintenance').default);
 Vue.component('master-component', require('./components/masterData.vue').default);
 Vue.component('jenis-perbaikan', require('./components/master/JenisPerbaikan.vue').default);
+Vue.component('tempat-perbaikan', require('./components/master/TempatPerbaikan.vue').default);
 
 
 

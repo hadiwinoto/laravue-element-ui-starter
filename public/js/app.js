@@ -8899,6 +8899,7 @@ vue__WEBPACK_IMPORTED_MODULE_10__["default"].component('maintenance-component', 
 vue__WEBPACK_IMPORTED_MODULE_10__["default"].component('maintenance-component-detail', (__webpack_require__(/*! ./components/detailMaintenance */ "./resources/js/components/detailMaintenance.vue")["default"]));
 vue__WEBPACK_IMPORTED_MODULE_10__["default"].component('master-component', (__webpack_require__(/*! ./components/masterData.vue */ "./resources/js/components/masterData.vue")["default"]));
 vue__WEBPACK_IMPORTED_MODULE_10__["default"].component('jenis-perbaikan', (__webpack_require__(/*! ./components/master/JenisPerbaikan.vue */ "./resources/js/components/master/JenisPerbaikan.vue")["default"]));
+vue__WEBPACK_IMPORTED_MODULE_10__["default"].component('tempat-perbaikan', (__webpack_require__(/*! ./components/master/TempatPerbaikan.vue */ "./resources/js/components/master/TempatPerbaikan.vue")["default"]));
 vue__WEBPACK_IMPORTED_MODULE_10__["default"].component('subheader-component', (__webpack_require__(/*! ./components/partial/Subheader.vue */ "./resources/js/components/partial/Subheader.vue")["default"]));
 vue__WEBPACK_IMPORTED_MODULE_10__["default"].component('subheader-maintenance', (__webpack_require__(/*! ./components/partial/SubheaderMaintenance */ "./resources/js/components/partial/SubheaderMaintenance.vue")["default"]));
 vue__WEBPACK_IMPORTED_MODULE_10__["default"].component('subheader-maintenance-detail', (__webpack_require__(/*! ./components/partial/SubheaderDetailMaintenance.vue */ "./resources/js/components/partial/SubheaderDetailMaintenance.vue")["default"]));
@@ -96599,6 +96600,40 @@ component.options.__file = "resources/js/components/master/SideMenu.vue"
 
 /***/ }),
 
+/***/ "./resources/js/components/master/TempatPerbaikan.vue":
+/*!************************************************************!*\
+  !*** ./resources/js/components/master/TempatPerbaikan.vue ***!
+  \************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! !../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+var render, staticRenderFns
+var script = {}
+
+
+/* normalize component */
+;
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_0__["default"])(
+  script,
+  render,
+  staticRenderFns,
+  false,
+  null,
+  null,
+  null
+  
+)
+
+component.options.__file = "resources/js/components/master/TempatPerbaikan.vue"
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
+
+/***/ }),
+
 /***/ "./resources/js/components/masterData.vue":
 /*!************************************************!*\
   !*** ./resources/js/components/masterData.vue ***!
@@ -99197,43 +99232,57 @@ var render = function () {
                         _c("el-menu-item", { attrs: { index: "1" } }, [
                           _c("i", { staticClass: "el-icon-setting" }),
                           _vm._v(" "),
-                          _c("span", [_vm._v("Jenis Perbaikan")]),
+                          _c("a", { attrs: { href: "#" } }, [
+                            _vm._v("Jenis Perbaikan"),
+                          ]),
                         ]),
                         _vm._v(" "),
                         _c("el-menu-item", { attrs: { index: "2" } }, [
                           _c("i", { staticClass: "el-icon-setting" }),
                           _vm._v(" "),
-                          _c("span", [_vm._v("Tempat Perbaikan")]),
+                          _c("a", { attrs: { href: "#" } }, [
+                            _vm._v("Tempat Perbaikan"),
+                          ]),
                         ]),
                         _vm._v(" "),
                         _c("el-menu-item", { attrs: { index: "3" } }, [
                           _c("i", { staticClass: "el-icon-setting" }),
                           _vm._v(" "),
-                          _c("span", [_vm._v("Model Perbaikan")]),
+                          _c("a", { attrs: { href: "#" } }, [
+                            _vm._v("Model Perbaikan"),
+                          ]),
                         ]),
                         _vm._v(" "),
                         _c("el-menu-item", { attrs: { index: "4" } }, [
                           _c("i", { staticClass: "el-icon-setting" }),
                           _vm._v(" "),
-                          _c("span", [_vm._v("Nomor Polisi Kendaraan")]),
+                          _c("a", { attrs: { href: "#" } }, [
+                            _vm._v("Nomor Polisi Kendaraan"),
+                          ]),
                         ]),
                         _vm._v(" "),
                         _c("el-menu-item", { attrs: { index: "5" } }, [
                           _c("i", { staticClass: "el-icon-setting" }),
                           _vm._v(" "),
-                          _c("span", [_vm._v("Nomor Kendaraan")]),
+                          _c("a", { attrs: { href: "#" } }, [
+                            _vm._v("Nomor Kendaraan"),
+                          ]),
                         ]),
                         _vm._v(" "),
                         _c("el-menu-item", { attrs: { index: "6" } }, [
                           _c("i", { staticClass: "el-icon-setting" }),
                           _vm._v(" "),
-                          _c("span", [_vm._v("Nama Supir")]),
+                          _c("a", { attrs: { href: "#" } }, [
+                            _vm._v("Nama Supir"),
+                          ]),
                         ]),
                         _vm._v(" "),
                         _c("el-menu-item", { attrs: { index: "7" } }, [
                           _c("i", { staticClass: "el-icon-setting" }),
                           _vm._v(" "),
-                          _c("span", [_vm._v("Nama Montir")]),
+                          _c("a", { attrs: { href: "#" } }, [
+                            _vm._v("Nama Montir"),
+                          ]),
                         ]),
                       ],
                       1
