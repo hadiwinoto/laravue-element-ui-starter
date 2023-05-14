@@ -25,6 +25,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/master-data', [App\Http\Controllers\MasterDataController::class, 'indexMasterData'])->name('masterdata');
     Route::get('/master-data/jenis-perbaikan', [App\Http\Controllers\MasterDataController::class,'indexPerbaikan'])->name('JenisPerbaikan');
     Route::get('/master-data/fetch-perbaikan', [App\Http\Controllers\MasterDataController::class,'getJenisPerbaikan'])->name('getJenisPerbaikan');
+    Route::post('/master-data/delete-master-perbaikan/{idjenis}', [App\Http\Controllers\MasterDataController::class,'DeleteJenisPerbaikan'])->name('DeleteJenisPerbaikan');
 
 
     Route::get('/maintenance/create', [App\Http\Controllers\Maintenance\MaintenanceController::class,'showZonaSatu'])->name('showZonaSatu');
@@ -33,7 +34,6 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/maintenance/{id}', [App\Http\Controllers\Maintenance\MaintenanceController::class,'detailMaintanance'])->name('detailMaintanance');
     Route::get('/maintenance/data/getbyid', [App\Http\Controllers\Maintenance\MaintenanceController::class,'DetailData'])->name('DetailData');
     Route::post('/maintenance/data/editdata', [App\Http\Controllers\Maintenance\MaintenanceController::class,'EditData'])->name('EditData');
-
     // Route::get('/master-data/tempat-perbaikan', [App\Http\Controllers\MasterDataController::class, 'indexJenisPerbaikan'])->name('JenisPerbaikan');
 });
 

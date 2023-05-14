@@ -26,4 +26,13 @@ class MasterDataController extends Controller
         
         return response()->json($data);
     }
+    public function DeleteJenisPerbaikan(Request $request){
+        $data = $this->master_perbaikan->where('id',$request->idjenis)->first();
+        $data->delete();
+
+        return response()->json([
+            'message' => "Data Deleted!"
+        ]);
+
+    }
 }

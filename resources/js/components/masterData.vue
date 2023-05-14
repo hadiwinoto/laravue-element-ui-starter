@@ -3,7 +3,7 @@
     <div class="row justify-content-center">
       <div class="col-md-3">
         <div class="card">
-          
+
           <div class="card-body">
             <el-col>
               <el-menu default-active="1" class="el-menu-vertical-demo">
@@ -42,44 +42,66 @@
       </div>
       <div class="col-md-9">
         <div class="card">
-          
+
           <div class="card-body">
             <div slot="header" class="clearfix">
               <span><b>Master Jenis Perbaikan</b></span>
-                  <el-button style="float: right;" size="small" type="primary">Tambah Data</el-button>
-              </div>
-               
-                    <el-table
-                        :data="jenisperbaiakan.filter(data => !search || data.name.toLowerCase().includes(search.toLowerCase()))"
-                        style="width: 100%">
-                        <el-table-column
-                          label="No"
-                          prop="">
-                        </el-table-column>
-                        <el-table-column
-                          label="Name"
-                          prop="name">
-                        </el-table-column>
-                        <el-table-column
-                          align="right">
-                          <template slot-scope="scope">
-                            <el-button
-                              size="mini"
-                              @click="handleEdit(scope.$index, scope.row)">Edit</el-button>
-                            <el-button
-                              size="mini"
-                              type="danger"
-                              @click="handleDelete(scope.$index, scope.row)">Delete</el-button>
-                          </template>
-                        </el-table-column>
-                      </el-table>
+              <el-button style="float: right;" size="small" type="primary" @click="showModal = true">Tambah Data</el-button>
+            </div>
 
-
-
-
+            <el-table
+              :data="jenisperbaiakan.filter(data => !search || data.name.toLowerCase().includes(search.toLowerCase()))"
+              style="width: 100%">
+              <el-table-column label="Name" prop="name">
+              </el-table-column>
+              <el-table-column align="right">
+                <template slot-scope="scope">
+                  <el-button size="mini" @click="handleEdit(scope.$index, scope.row)">Edit</el-button>
+                  <el-button size="mini" type="danger" @click="confirmDelete(scope.$index, scope.id)">Delete</el-button>
+                </template>
+              </el-table-column>
+            </el-table>
           </div>
         </div>
       </div>
+      <Modal
+          :based-on="showModal"
+          title="Input Data"
+          @close="showModal = false"
+        >
+          <div class="row">
+            <form @submit.prevent="onSubmit">
+              <div class="form-group row mb-3">
+                <label class="col-sm-4 col-form-label">Nama Jenis</label>
+                <div class="col-sm-8">
+                  <input
+                    type="text"
+                    v-model="form.nama_jenis"
+                    class="form-control"
+                  />
+                </div>
+              </div>
+              <div class="form-group row mb-3">
+                <label class="col-sm-4 col-form-label"></label>
+                <div class="col-sm-8">
+                  <button
+                    type="submit"
+                    :disabled="buttondisabled"
+                    class="btn btn-primary"
+                    size="small"
+                  >
+                    <span
+                      :class="buttonloading"
+                      role="status"
+                      aria-hidden="true"
+                    ></span
+                    >Submit
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </Modal>
     </div>
   </div>
 </template>
@@ -88,12 +110,19 @@
 export default {
   data() {
     return {
-      form:null,
-      isLoadingContent:false,
-      jenisperbaiakan:[],
+      form: null,
+      isLoadingContent: false,
+      jenisperbaiakan: [],
+      showModal: false,
+      search:"",
+      buttonloading: "",
+      buttondisabled: false,
+      form:{
+        nama_jenis:null
+      }
     };
   },
-  created(){
+  created() {
     this.getData();
   },
   methods: {
@@ -102,15 +131,43 @@ export default {
       this.$http
         .get("/master-data/fetch-perbaikan")
         .then((response) => {
-          this.jenisperbaiakan  = response.data;
+          this.jenisperbaiakan = response.data;
           this.isLoadingContent = false;
         });
     },
     handleEdit(index, row) {
-        console.log(index, row);
-      },
-      handleDelete(index, row) {
-        console.log(index, row);
+      console.log(index, row);
+    },
+    
+    confirmDelete(index, row){
+      console.log(index);
+      console.log(row);
+        this.$confirm('This will permanently delete the Data. Continue?', 'Warning', {
+          confirmButtonText: 'OK',
+          cancelButtonText: 'Cancel',
+          type: 'warning',
+          center: true
+        }).then(() => {
+            this.$http.post("/master-data/delete-master-perbaikan/" + idjenis).then((Response) => {
+              this.$notify({
+                title: "Success",
+                message: "Success Delete Data!",
+                position: "bottom-right", 
+                type: "success",
+              }).catch((error) => {
+                this.$notify.error({
+                  title: "Error",
+                  message: "Failed!",
+                  position: "bottom-right",
+                });
+              });
+            });
+        }).catch(() => {
+          this.$message({
+            type: 'info',
+            message: 'Delete canceled'
+          });
+        });
       },
     onSubmit() {
       let data = {

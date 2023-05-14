@@ -8405,6 +8405,30 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -8493,11 +8517,17 @@ __webpack_require__.r(__webpack_exports__);
 //
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
-    return {
+    return _defineProperty({
       form: null,
       isLoadingContent: false,
-      jenisperbaiakan: []
-    };
+      jenisperbaiakan: [],
+      showModal: false,
+      search: "",
+      buttonloading: "",
+      buttondisabled: false
+    }, "form", {
+      nama_jenis: null
+    });
   },
   created: function created() {
     this.getData();
@@ -8515,23 +8545,52 @@ __webpack_require__.r(__webpack_exports__);
     handleEdit: function handleEdit(index, row) {
       console.log(index, row);
     },
-    handleDelete: function handleDelete(index, row) {
-      console.log(index, row);
+    confirmDelete: function confirmDelete(index, row) {
+      var _this2 = this;
+
+      console.log(index);
+      console.log(row);
+      this.$confirm('This will permanently delete the Data. Continue?', 'Warning', {
+        confirmButtonText: 'OK',
+        cancelButtonText: 'Cancel',
+        type: 'warning',
+        center: true
+      }).then(function () {
+        _this2.$http.post("/master-data/delete-master-perbaikan/" + idjenis).then(function (Response) {
+          _this2.$notify({
+            title: "Success",
+            message: "Success Delete Data!",
+            position: "bottom-right",
+            type: "success"
+          })["catch"](function (error) {
+            _this2.$notify.error({
+              title: "Error",
+              message: "Failed!",
+              position: "bottom-right"
+            });
+          });
+        });
+      })["catch"](function () {
+        _this2.$message({
+          type: 'info',
+          message: 'Delete canceled'
+        });
+      });
     },
     onSubmit: function onSubmit() {
-      var _this2 = this;
+      var _this3 = this;
 
       var data = {
         form: this.form
       };
       this.$http.post("/api/submit/data", data).then(function (Response) {
-        _this2.$notify({
+        _this3.$notify({
           title: "Success",
           message: "This is a success message",
           position: "bottom-right",
           type: "success"
         })["catch"](function (error) {
-          _this2.$notify.error({
+          _this3.$notify.error({
             title: "Error",
             message: "This is an error message",
             position: "bottom-right"
@@ -99123,178 +99182,273 @@ var render = function () {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "container" }, [
-    _c("div", { staticClass: "row justify-content-center" }, [
-      _c("div", { staticClass: "col-md-3" }, [
-        _c("div", { staticClass: "card" }, [
-          _c(
-            "div",
-            { staticClass: "card-body" },
-            [
-              _c(
-                "el-col",
-                [
-                  _c(
-                    "el-menu",
-                    {
-                      staticClass: "el-menu-vertical-demo",
-                      attrs: { "default-active": "1" },
-                    },
-                    [
-                      _c("el-menu-item", { attrs: { index: "1" } }, [
-                        _c("i", { staticClass: "el-icon-setting" }),
+    _c(
+      "div",
+      { staticClass: "row justify-content-center" },
+      [
+        _c("div", { staticClass: "col-md-3" }, [
+          _c("div", { staticClass: "card" }, [
+            _c(
+              "div",
+              { staticClass: "card-body" },
+              [
+                _c(
+                  "el-col",
+                  [
+                    _c(
+                      "el-menu",
+                      {
+                        staticClass: "el-menu-vertical-demo",
+                        attrs: { "default-active": "1" },
+                      },
+                      [
+                        _c("el-menu-item", { attrs: { index: "1" } }, [
+                          _c("i", { staticClass: "el-icon-setting" }),
+                          _vm._v(" "),
+                          _c("span", [_vm._v("Jenis Perbaikan")]),
+                        ]),
                         _vm._v(" "),
-                        _c("span", [_vm._v("Jenis Perbaikan")]),
-                      ]),
-                      _vm._v(" "),
-                      _c("el-menu-item", { attrs: { index: "2" } }, [
-                        _c("i", { staticClass: "el-icon-setting" }),
+                        _c("el-menu-item", { attrs: { index: "2" } }, [
+                          _c("i", { staticClass: "el-icon-setting" }),
+                          _vm._v(" "),
+                          _c("span", [_vm._v("Tempat Perbaikan")]),
+                        ]),
                         _vm._v(" "),
-                        _c("span", [_vm._v("Tempat Perbaikan")]),
-                      ]),
-                      _vm._v(" "),
-                      _c("el-menu-item", { attrs: { index: "3" } }, [
-                        _c("i", { staticClass: "el-icon-setting" }),
+                        _c("el-menu-item", { attrs: { index: "3" } }, [
+                          _c("i", { staticClass: "el-icon-setting" }),
+                          _vm._v(" "),
+                          _c("span", [_vm._v("Model Perbaikan")]),
+                        ]),
                         _vm._v(" "),
-                        _c("span", [_vm._v("Model Perbaikan")]),
-                      ]),
-                      _vm._v(" "),
-                      _c("el-menu-item", { attrs: { index: "4" } }, [
-                        _c("i", { staticClass: "el-icon-setting" }),
+                        _c("el-menu-item", { attrs: { index: "4" } }, [
+                          _c("i", { staticClass: "el-icon-setting" }),
+                          _vm._v(" "),
+                          _c("span", [_vm._v("Nomor Polisi Kendaraan")]),
+                        ]),
                         _vm._v(" "),
-                        _c("span", [_vm._v("Nomor Polisi Kendaraan")]),
-                      ]),
-                      _vm._v(" "),
-                      _c("el-menu-item", { attrs: { index: "5" } }, [
-                        _c("i", { staticClass: "el-icon-setting" }),
+                        _c("el-menu-item", { attrs: { index: "5" } }, [
+                          _c("i", { staticClass: "el-icon-setting" }),
+                          _vm._v(" "),
+                          _c("span", [_vm._v("Nomor Kendaraan")]),
+                        ]),
                         _vm._v(" "),
-                        _c("span", [_vm._v("Nomor Kendaraan")]),
-                      ]),
-                      _vm._v(" "),
-                      _c("el-menu-item", { attrs: { index: "6" } }, [
-                        _c("i", { staticClass: "el-icon-setting" }),
+                        _c("el-menu-item", { attrs: { index: "6" } }, [
+                          _c("i", { staticClass: "el-icon-setting" }),
+                          _vm._v(" "),
+                          _c("span", [_vm._v("Nama Supir")]),
+                        ]),
                         _vm._v(" "),
-                        _c("span", [_vm._v("Nama Supir")]),
-                      ]),
-                      _vm._v(" "),
-                      _c("el-menu-item", { attrs: { index: "7" } }, [
-                        _c("i", { staticClass: "el-icon-setting" }),
-                        _vm._v(" "),
-                        _c("span", [_vm._v("Nama Montir")]),
-                      ]),
-                    ],
-                    1
-                  ),
-                ],
-                1
-              ),
-            ],
-            1
-          ),
+                        _c("el-menu-item", { attrs: { index: "7" } }, [
+                          _c("i", { staticClass: "el-icon-setting" }),
+                          _vm._v(" "),
+                          _c("span", [_vm._v("Nama Montir")]),
+                        ]),
+                      ],
+                      1
+                    ),
+                  ],
+                  1
+                ),
+              ],
+              1
+            ),
+          ]),
         ]),
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "col-md-9" }, [
-        _c("div", { staticClass: "card" }, [
-          _c(
-            "div",
-            { staticClass: "card-body" },
-            [
-              _c(
-                "div",
-                {
-                  staticClass: "clearfix",
-                  attrs: { slot: "header" },
-                  slot: "header",
-                },
-                [
-                  _vm._m(0),
-                  _vm._v(" "),
-                  _c(
-                    "el-button",
-                    {
-                      staticStyle: { float: "right" },
-                      attrs: { size: "small", type: "primary" },
+        _vm._v(" "),
+        _c("div", { staticClass: "col-md-9" }, [
+          _c("div", { staticClass: "card" }, [
+            _c(
+              "div",
+              { staticClass: "card-body" },
+              [
+                _c(
+                  "div",
+                  {
+                    staticClass: "clearfix",
+                    attrs: { slot: "header" },
+                    slot: "header",
+                  },
+                  [
+                    _vm._m(0),
+                    _vm._v(" "),
+                    _c(
+                      "el-button",
+                      {
+                        staticStyle: { float: "right" },
+                        attrs: { size: "small", type: "primary" },
+                        on: {
+                          click: function ($event) {
+                            _vm.showModal = true
+                          },
+                        },
+                      },
+                      [_vm._v("Tambah Data")]
+                    ),
+                  ],
+                  1
+                ),
+                _vm._v(" "),
+                _c(
+                  "el-table",
+                  {
+                    staticStyle: { width: "100%" },
+                    attrs: {
+                      data: _vm.jenisperbaiakan.filter(function (data) {
+                        return (
+                          !_vm.search ||
+                          data.name
+                            .toLowerCase()
+                            .includes(_vm.search.toLowerCase())
+                        )
+                      }),
                     },
-                    [_vm._v("Tambah Data")]
-                  ),
-                ],
-                1
-              ),
-              _vm._v(" "),
-              _c(
-                "el-table",
-                {
-                  staticStyle: { width: "100%" },
-                  attrs: {
-                    data: _vm.jenisperbaiakan.filter(function (data) {
-                      return (
-                        !_vm.search ||
-                        data.name
-                          .toLowerCase()
-                          .includes(_vm.search.toLowerCase())
-                      )
+                  },
+                  [
+                    _c("el-table-column", {
+                      attrs: { label: "Name", prop: "name" },
                     }),
+                    _vm._v(" "),
+                    _c("el-table-column", {
+                      attrs: { align: "right" },
+                      scopedSlots: _vm._u([
+                        {
+                          key: "default",
+                          fn: function (scope) {
+                            return [
+                              _c(
+                                "el-button",
+                                {
+                                  attrs: { size: "mini" },
+                                  on: {
+                                    click: function ($event) {
+                                      return _vm.handleEdit(
+                                        scope.$index,
+                                        scope.row
+                                      )
+                                    },
+                                  },
+                                },
+                                [_vm._v("Edit")]
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "el-button",
+                                {
+                                  attrs: { size: "mini", type: "danger" },
+                                  on: {
+                                    click: function ($event) {
+                                      return _vm.confirmDelete(
+                                        scope.$index,
+                                        scope.id
+                                      )
+                                    },
+                                  },
+                                },
+                                [_vm._v("Delete")]
+                              ),
+                            ]
+                          },
+                        },
+                      ]),
+                    }),
+                  ],
+                  1
+                ),
+              ],
+              1
+            ),
+          ]),
+        ]),
+        _vm._v(" "),
+        _c(
+          "Modal",
+          {
+            attrs: { "based-on": _vm.showModal, title: "Input Data" },
+            on: {
+              close: function ($event) {
+                _vm.showModal = false
+              },
+            },
+          },
+          [
+            _c("div", { staticClass: "row" }, [
+              _c(
+                "form",
+                {
+                  on: {
+                    submit: function ($event) {
+                      $event.preventDefault()
+                      return _vm.onSubmit.apply(null, arguments)
+                    },
                   },
                 },
                 [
-                  _c("el-table-column", { attrs: { label: "No", prop: "" } }),
-                  _vm._v(" "),
-                  _c("el-table-column", {
-                    attrs: { label: "Name", prop: "name" },
-                  }),
-                  _vm._v(" "),
-                  _c("el-table-column", {
-                    attrs: { align: "right" },
-                    scopedSlots: _vm._u([
-                      {
-                        key: "default",
-                        fn: function (scope) {
-                          return [
-                            _c(
-                              "el-button",
-                              {
-                                attrs: { size: "mini" },
-                                on: {
-                                  click: function ($event) {
-                                    return _vm.handleEdit(
-                                      scope.$index,
-                                      scope.row
-                                    )
-                                  },
-                                },
-                              },
-                              [_vm._v("Edit")]
-                            ),
-                            _vm._v(" "),
-                            _c(
-                              "el-button",
-                              {
-                                attrs: { size: "mini", type: "danger" },
-                                on: {
-                                  click: function ($event) {
-                                    return _vm.handleDelete(
-                                      scope.$index,
-                                      scope.row
-                                    )
-                                  },
-                                },
-                              },
-                              [_vm._v("Delete")]
-                            ),
-                          ]
-                        },
-                      },
+                  _c("div", { staticClass: "form-group row mb-3" }, [
+                    _c("label", { staticClass: "col-sm-4 col-form-label" }, [
+                      _vm._v("Nama Jenis"),
                     ]),
-                  }),
-                ],
-                1
+                    _vm._v(" "),
+                    _c("div", { staticClass: "col-sm-8" }, [
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.form.nama_jenis,
+                            expression: "form.nama_jenis",
+                          },
+                        ],
+                        staticClass: "form-control",
+                        attrs: { type: "text" },
+                        domProps: { value: _vm.form.nama_jenis },
+                        on: {
+                          input: function ($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(
+                              _vm.form,
+                              "nama_jenis",
+                              $event.target.value
+                            )
+                          },
+                        },
+                      }),
+                    ]),
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "form-group row mb-3" }, [
+                    _c("label", { staticClass: "col-sm-4 col-form-label" }),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "col-sm-8" }, [
+                      _c(
+                        "button",
+                        {
+                          staticClass: "btn btn-primary",
+                          attrs: {
+                            type: "submit",
+                            disabled: _vm.buttondisabled,
+                            size: "small",
+                          },
+                        },
+                        [
+                          _c("span", {
+                            class: _vm.buttonloading,
+                            attrs: { role: "status", "aria-hidden": "true" },
+                          }),
+                          _vm._v("Submit\r\n                  "),
+                        ]
+                      ),
+                    ]),
+                  ]),
+                ]
               ),
-            ],
-            1
-          ),
-        ]),
-      ]),
-    ]),
+            ]),
+          ]
+        ),
+      ],
+      1
+    ),
   ])
 }
 var staticRenderFns = [
