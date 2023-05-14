@@ -33,6 +33,15 @@ class MasterDataController extends Controller
         return response()->json([
             'message' => "Data Deleted!"
         ]);
+    }
+    public function tambahJenisPerbaikan(Request $request){
+        $data = $this->master_perbaikan;
+        $data->name = $request->jenis_perbaikan;
+        $data->save();
 
+        return response()->json([
+            'data' => $data,
+            'message' => "Data Deleted!"
+        ]);
     }
 }

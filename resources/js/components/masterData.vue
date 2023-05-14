@@ -71,13 +71,13 @@
           @close="showModal = false"
         >
           <div class="row">
-            <form @submit.prevent="onSubmit">
+            <form @submit.prevent="tambahData">
               <div class="form-group row mb-3">
                 <label class="col-sm-4 col-form-label">Nama Jenis</label>
                 <div class="col-sm-8">
                   <input
                     type="text"
-                    v-model="form.nama_jenis"
+                    v-model="form.jenis_perbaikan"
                     class="form-control"
                   />
                 </div>
@@ -111,7 +111,6 @@
 export default {
   data() {
     return {
-      form: null,
       isLoadingContent: false,
       jenisperbaiakan: [],
       showModal: false,
@@ -119,8 +118,10 @@ export default {
       buttonloading: "",
       buttondisabled: false,
       form:{
-        nama_jenis:null
-      }
+        jenis_perbaikan:""
+      },
+      buttonloading: "",
+      buttondisabled: false,
     };
   },
   created() {
@@ -148,45 +149,32 @@ export default {
           center: true
         }).then(() => {
             this.$http.post("/master-data/delete-master-perbaikan/" + idjenis).then((Response) => {
-              this.$notify({
-                title: "Success",
-                message: "Success Delete Data!",
-                position: "bottom-right", 
-                type: "success",
-              }).catch((error) => {
-                this.$notify.error({
-                  title: "Error",
-                  message: "Failed!",
-                  position: "bottom-right",
-                });
-              });
+              this.$awn.success("Success Delete Data!");
+              this.getData();
             });
+          }).catch(() => {
+            this.$awn.alert("Gagal Delete Data!");
             this.getData();
-        }).catch(() => {
-          this.$message({
-            type: 'info',
-            message: 'Delete canceled'
-          });
         });
       },
-    onSubmit() {
-      let data = {
-        form: this.form,
-      };
-      this.$http.post("/api/submit/data", data).then((Response) => {
-        this.$notify({
-          title: "Success",
-          message: "This is a success message",
-          position: "bottom-right",
-          type: "success",
-        }).catch((error) => {
-          this.$notify.error({
-            title: "Error",
-            message: "This is an error message",
-            position: "bottom-right",
+    tambahData() {
+      let data = this.form;
+      this.buttonloading = "spinner-border spinner-border-sm";
+      this.buttondisabled = true;
+      this.$http.post("/master-data/delete-master-perbaikan/data/tambah", data)
+        .then((Response) => {
+            this.$awn.success("Sukses Submit Data");
+            this.getData();
+            this.showModal = false;
+            this.buttonloading = "";
+            this.buttondisabled = false;
+          })
+          .catch((error) => {
+            this.$awn.alert("Gagal Submit Data");
+            this.showModal = false;
+            this.buttonloading = "";
+            this.buttondisabled = false;
           });
-        });
-      });
     },
   },
 };

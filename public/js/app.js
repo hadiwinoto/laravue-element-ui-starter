@@ -8518,17 +8518,19 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
-    return _defineProperty({
-      form: null,
+    var _ref;
+
+    return _ref = {
       isLoadingContent: false,
       jenisperbaiakan: [],
       showModal: false,
       search: "",
       buttonloading: "",
-      buttondisabled: false
-    }, "form", {
-      nama_jenis: null
-    });
+      buttondisabled: false,
+      form: {
+        jenis_perbaikan: ""
+      }
+    }, _defineProperty(_ref, "buttonloading", ""), _defineProperty(_ref, "buttondisabled", false), _ref;
   },
   created: function created() {
     this.getData();
@@ -8556,47 +8558,36 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         center: true
       }).then(function () {
         _this2.$http.post("/master-data/delete-master-perbaikan/" + idjenis).then(function (Response) {
-          _this2.$notify({
-            title: "Success",
-            message: "Success Delete Data!",
-            position: "bottom-right",
-            type: "success"
-          })["catch"](function (error) {
-            _this2.$notify.error({
-              title: "Error",
-              message: "Failed!",
-              position: "bottom-right"
-            });
-          });
+          _this2.$awn.success("Success Delete Data!");
+
+          _this2.getData();
         });
+      })["catch"](function () {
+        _this2.$awn.alert("Gagal Delete Data!");
 
         _this2.getData();
-      })["catch"](function () {
-        _this2.$message({
-          type: 'info',
-          message: 'Delete canceled'
-        });
       });
     },
-    onSubmit: function onSubmit() {
+    tambahData: function tambahData() {
       var _this3 = this;
 
-      var data = {
-        form: this.form
-      };
-      this.$http.post("/api/submit/data", data).then(function (Response) {
-        _this3.$notify({
-          title: "Success",
-          message: "This is a success message",
-          position: "bottom-right",
-          type: "success"
-        })["catch"](function (error) {
-          _this3.$notify.error({
-            title: "Error",
-            message: "This is an error message",
-            position: "bottom-right"
-          });
-        });
+      var data = this.form;
+      this.buttonloading = "spinner-border spinner-border-sm";
+      this.buttondisabled = true;
+      this.$http.post("/master-data/delete-master-perbaikan/data/tambah", data).then(function (Response) {
+        _this3.$awn.success("Sukses Submit Data");
+
+        _this3.getData();
+
+        _this3.showModal = false;
+        _this3.buttonloading = "";
+        _this3.buttondisabled = false;
+      })["catch"](function (error) {
+        _this3.$awn.alert("Gagal Submit Data");
+
+        _this3.showModal = false;
+        _this3.buttonloading = "";
+        _this3.buttondisabled = false;
       });
     }
   }
@@ -99350,7 +99341,7 @@ var render = function () {
                   on: {
                     submit: function ($event) {
                       $event.preventDefault()
-                      return _vm.onSubmit.apply(null, arguments)
+                      return _vm.tambahData.apply(null, arguments)
                     },
                   },
                 },
@@ -99366,13 +99357,13 @@ var render = function () {
                           {
                             name: "model",
                             rawName: "v-model",
-                            value: _vm.form.nama_jenis,
-                            expression: "form.nama_jenis",
+                            value: _vm.form.jenis_perbaikan,
+                            expression: "form.jenis_perbaikan",
                           },
                         ],
                         staticClass: "form-control",
                         attrs: { type: "text" },
-                        domProps: { value: _vm.form.nama_jenis },
+                        domProps: { value: _vm.form.jenis_perbaikan },
                         on: {
                           input: function ($event) {
                             if ($event.target.composing) {
@@ -99380,7 +99371,7 @@ var render = function () {
                             }
                             _vm.$set(
                               _vm.form,
-                              "nama_jenis",
+                              "jenis_perbaikan",
                               $event.target.value
                             )
                           },
