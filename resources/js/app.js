@@ -52,16 +52,6 @@ import * as mdb from 'mdb-ui-kit'; // lib
 import { Input } from 'mdb-ui-kit'; // module
 
 
-/**
- * The following block of code may be used to automatically register your
- * Vue components. It will recursively scan this directory for the Vue
- * components and automatically register them with their "basename".
- * Eg. ./components/ExampleComponent.vue -> <example-component></example-component>
- */
-
-// const files = require.context('./', true, /\.vue$/i)
-// files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
-
 Vue.component('dashboard-component', require('./components/Dashboard.vue').default);
 Vue.component('welcome-page-component', require('./components/partial/WelcomePage.vue').default);
 Vue.component('maintenance-component', require('./components/maintenance.vue').default);
@@ -69,6 +59,7 @@ Vue.component('maintenance-component-detail', require('./components/detailMainte
 Vue.component('master-component', require('./components/masterData.vue').default);
 Vue.component('jenis-perbaikan', require('./components/master/JenisPerbaikan.vue').default);
 Vue.component('tempat-perbaikan', require('./components/master/TempatPerbaikan.vue').default);
+Vue.component('model-perbaikan', require('./components/master/ModelPerbaikan.vue').default);
 
 
 

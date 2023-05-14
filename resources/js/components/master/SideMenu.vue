@@ -17,7 +17,7 @@
                 </el-menu-item>
                 <el-menu-item index="3">
                   <i class="el-icon-setting"></i>
-                  <a href="#">Model Perbaikan</a>
+                  <a href="/master-data/model-perbaikan">Model Perbaikan</a>
                 </el-menu-item>
                 <el-menu-item index="4">
                   <i class="el-icon-setting"></i>
