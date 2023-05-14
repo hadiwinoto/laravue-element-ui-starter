@@ -9,11 +9,11 @@
               <el-menu default-active="1" class="el-menu-vertical-demo">
                 <el-menu-item index="1">
                   <i class="el-icon-setting"></i>
-                  <a href="#">Jenis Perbaikan</a>
+                  <a href="/master-data">Jenis Perbaikan</a>
                 </el-menu-item>
                 <el-menu-item index="2">
                   <i class="el-icon-setting"></i>
-                  <a href="#">Tempat Perbaikan</a>
+                  <a href="/master-data/tempat-perbaikan">Tempat Perbaikan</a>
                 </el-menu-item>
                 <el-menu-item index="3">
                   <i class="el-icon-setting"></i>

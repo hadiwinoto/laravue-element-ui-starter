@@ -7,33 +7,33 @@
                 @open="handleOpen"
                 @close="handleClose"
               >
-                <el-menu-item index="1">
+              <el-menu-item index="1">
                   <i class="el-icon-setting"></i>
-                  <span> Jenis Perbaikan </span>
+                  <a href="/master-data">Jenis Perbaikan</a>
                 </el-menu-item>
                 <el-menu-item index="2">
                   <i class="el-icon-setting"></i>
-                  <span>Tempat Perbaikan</span>
+                  <a href="/master-data/tempat-perbaikan">Tempat Perbaikan</a>
                 </el-menu-item>
                 <el-menu-item index="3">
                   <i class="el-icon-setting"></i>
-                  <span>Model Perbaikan</span>
+                  <a href="#">Model Perbaikan</a>
                 </el-menu-item>
                 <el-menu-item index="4">
                   <i class="el-icon-setting"></i>
-                  <span>Nomor Polisi Kendaraan</span>
+                  <a href="#">Nomor Polisi Kendaraan</a>
                 </el-menu-item>
                 <el-menu-item index="5">
                   <i class="el-icon-setting"></i>
-                  <span>Nomor Kendaraan</span>
+                  <a href="#">Nomor Kendaraan</a>
                 </el-menu-item>
                 <el-menu-item index="6">
                   <i class="el-icon-setting"></i>
-                  <span>Nama Supir</span>
+                  <a href="#">Nama Supir</a>
                 </el-menu-item>
                 <el-menu-item index="7">
                   <i class="el-icon-setting"></i>
-                  <span>Nama Montir</span>
+                  <a href="#">Nama Montir</a>
                 </el-menu-item>
               </el-menu>
             </el-col>
