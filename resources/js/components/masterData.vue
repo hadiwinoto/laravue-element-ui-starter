@@ -42,27 +42,28 @@
       </div>
       <div class="col-md-9">
         <div class="card">
-
           <div class="card-body">
-            <div slot="header" class="clearfix">
-              <span><b>Master Jenis Perbaikan</b></span>
-              <el-button style="float: right;" size="small" type="primary" @click="showModal = true">Tambah Data</el-button>
+            <div class="table-responsive">
+                <span><b>Master Jenis Perbaikan</b></span>
+                  <el-button style="float: right;" size="small" type="primary" @click="showModal = true">Tambah Data</el-button>
+                  <table class="table">
+                      <thead>
+                        <th width="70%">Nama Jenis</th>
+                        <th width="30%" class="text-center">Action</th>
+                      </thead>
+                      <tbody>
+                        <tr v-for="(pbr, idx) in jenisperbaiakan" :key="idx">
+                          <td>{{pbr.name}}</td>
+                          <td class="text-center"> 
+                            <el-button size="mini" @click="handleEdit(pbr.id)">Edit</el-button>
+                            <el-button size="mini" type="danger" @click="confirmDelete(pbr.id)">Delete</el-button>
+                          </td>
+                        </tr>
+                      </tbody>
+                  </table>
+              </div>
             </div>
-
-            <el-table
-              :data="jenisperbaiakan.filter(data => !search || data.name.toLowerCase().includes(search.toLowerCase()))"
-              style="width: 100%">
-              <el-table-column label="Name" prop="name">
-              </el-table-column>
-              <el-table-column align="right">
-                <template slot-scope="scope">
-                  <el-button size="mini" @click="handleEdit(scope.$index, scope.row)">Edit</el-button>
-                  <el-button size="mini" type="danger" @click="confirmDelete(scope.$index, scope.id)">Delete</el-button>
-                </template>
-              </el-table-column>
-            </el-table>
-          </div>
-        </div>
+         </div>
       </div>
       <Modal
           :based-on="showModal"
@@ -135,13 +136,11 @@ export default {
           this.isLoadingContent = false;
         });
     },
-    handleEdit(index, row) {
-      console.log(index, row);
+    handleEdit(id) {
+      console.log(id);
     },
     
-    confirmDelete(index, row){
-      console.log(index);
-      console.log(row);
+    confirmDelete(idjenis){
         this.$confirm('This will permanently delete the Data. Continue?', 'Warning', {
           confirmButtonText: 'OK',
           cancelButtonText: 'Cancel',
@@ -162,6 +161,7 @@ export default {
                 });
               });
             });
+            this.getData();
         }).catch(() => {
           this.$message({
             type: 'info',

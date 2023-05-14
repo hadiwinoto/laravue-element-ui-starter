@@ -8515,6 +8515,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return _defineProperty({
@@ -8542,14 +8543,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         _this.isLoadingContent = false;
       });
     },
-    handleEdit: function handleEdit(index, row) {
-      console.log(index, row);
+    handleEdit: function handleEdit(id) {
+      console.log(id);
     },
-    confirmDelete: function confirmDelete(index, row) {
+    confirmDelete: function confirmDelete(idjenis) {
       var _this2 = this;
 
-      console.log(index);
-      console.log(row);
       this.$confirm('This will permanently delete the Data. Continue?', 'Warning', {
         confirmButtonText: 'OK',
         cancelButtonText: 'Cancel',
@@ -8570,6 +8569,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
             });
           });
         });
+
+        _this2.getData();
       })["catch"](function () {
         _this2.$message({
           type: 'info',
@@ -99257,74 +99258,47 @@ var render = function () {
         _vm._v(" "),
         _c("div", { staticClass: "col-md-9" }, [
           _c("div", { staticClass: "card" }, [
-            _c(
-              "div",
-              { staticClass: "card-body" },
-              [
-                _c(
-                  "div",
-                  {
-                    staticClass: "clearfix",
-                    attrs: { slot: "header" },
-                    slot: "header",
-                  },
-                  [
-                    _vm._m(0),
-                    _vm._v(" "),
-                    _c(
-                      "el-button",
-                      {
-                        staticStyle: { float: "right" },
-                        attrs: { size: "small", type: "primary" },
-                        on: {
-                          click: function ($event) {
-                            _vm.showModal = true
-                          },
+            _c("div", { staticClass: "card-body" }, [
+              _c(
+                "div",
+                { staticClass: "table-responsive" },
+                [
+                  _vm._m(0),
+                  _vm._v(" "),
+                  _c(
+                    "el-button",
+                    {
+                      staticStyle: { float: "right" },
+                      attrs: { size: "small", type: "primary" },
+                      on: {
+                        click: function ($event) {
+                          _vm.showModal = true
                         },
                       },
-                      [_vm._v("Tambah Data")]
-                    ),
-                  ],
-                  1
-                ),
-                _vm._v(" "),
-                _c(
-                  "el-table",
-                  {
-                    staticStyle: { width: "100%" },
-                    attrs: {
-                      data: _vm.jenisperbaiakan.filter(function (data) {
-                        return (
-                          !_vm.search ||
-                          data.name
-                            .toLowerCase()
-                            .includes(_vm.search.toLowerCase())
-                        )
-                      }),
                     },
-                  },
-                  [
-                    _c("el-table-column", {
-                      attrs: { label: "Name", prop: "name" },
-                    }),
+                    [_vm._v("Tambah Data")]
+                  ),
+                  _vm._v(" "),
+                  _c("table", { staticClass: "table" }, [
+                    _vm._m(1),
                     _vm._v(" "),
-                    _c("el-table-column", {
-                      attrs: { align: "right" },
-                      scopedSlots: _vm._u([
-                        {
-                          key: "default",
-                          fn: function (scope) {
-                            return [
+                    _c(
+                      "tbody",
+                      _vm._l(_vm.jenisperbaiakan, function (pbr, idx) {
+                        return _c("tr", { key: idx }, [
+                          _c("td", [_vm._v(_vm._s(pbr.name))]),
+                          _vm._v(" "),
+                          _c(
+                            "td",
+                            { staticClass: "text-center" },
+                            [
                               _c(
                                 "el-button",
                                 {
                                   attrs: { size: "mini" },
                                   on: {
                                     click: function ($event) {
-                                      return _vm.handleEdit(
-                                        scope.$index,
-                                        scope.row
-                                      )
+                                      return _vm.handleEdit(pbr.id)
                                     },
                                   },
                                 },
@@ -99337,26 +99311,24 @@ var render = function () {
                                   attrs: { size: "mini", type: "danger" },
                                   on: {
                                     click: function ($event) {
-                                      return _vm.confirmDelete(
-                                        scope.$index,
-                                        scope.id
-                                      )
+                                      return _vm.confirmDelete(pbr.id)
                                     },
                                   },
                                 },
                                 [_vm._v("Delete")]
                               ),
-                            ]
-                          },
-                        },
-                      ]),
-                    }),
-                  ],
-                  1
-                ),
-              ],
-              1
-            ),
+                            ],
+                            1
+                          ),
+                        ])
+                      }),
+                      0
+                    ),
+                  ]),
+                ],
+                1
+              ),
+            ]),
           ]),
         ]),
         _vm._v(" "),
@@ -99457,6 +99429,18 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("span", [_c("b", [_vm._v("Master Jenis Perbaikan")])])
+  },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("thead", [
+      _c("th", { attrs: { width: "70%" } }, [_vm._v("Nama Jenis")]),
+      _vm._v(" "),
+      _c("th", { staticClass: "text-center", attrs: { width: "30%" } }, [
+        _vm._v("Action"),
+      ]),
+    ])
   },
 ]
 render._withStripped = true
