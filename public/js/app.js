@@ -8522,6 +8522,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   components: {
@@ -8544,6 +8551,8 @@ __webpack_require__.r(__webpack_exports__);
   },
   created: function created() {},
   methods: {
+    confirmDelete: function confirmDelete() {},
+    handleEdit: function handleEdit() {},
     onSubmit: function onSubmit() {
       var _this = this;
 
@@ -99570,40 +99579,69 @@ var render = function () {
       _vm._v(" "),
       _c("div", { staticClass: "col-md-9" }, [
         _c("div", { staticClass: "card" }, [
-          _c(
-            "div",
-            { staticClass: "card-body" },
-            [
-              _c(
-                "el-table",
-                {
-                  staticStyle: { width: "100%" },
-                  attrs: { data: _vm.tableData, stripe: "" },
-                },
-                [
-                  _c("el-table-column", {
-                    attrs: { prop: "date", label: "Date", width: "180" },
-                  }),
+          _c("div", { staticClass: "card-body" }, [
+            _c("table", { staticClass: "table" }, [
+              _vm._m(0),
+              _vm._v(" "),
+              _c("tbody", [
+                _c("tr", [
+                  _c("td"),
                   _vm._v(" "),
-                  _c("el-table-column", {
-                    attrs: { prop: "name", label: "Name", width: "180" },
-                  }),
-                  _vm._v(" "),
-                  _c("el-table-column", {
-                    attrs: { prop: "address", label: "Address" },
-                  }),
-                ],
-                1
-              ),
-            ],
-            1
-          ),
+                  _c(
+                    "td",
+                    { staticClass: "text-center" },
+                    [
+                      _c(
+                        "el-button",
+                        {
+                          attrs: { size: "mini" },
+                          on: {
+                            click: function ($event) {
+                              return _vm.handleEdit(_vm.pbr.id)
+                            },
+                          },
+                        },
+                        [_vm._v("Edit")]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "el-button",
+                        {
+                          attrs: { size: "mini", type: "danger" },
+                          on: {
+                            click: function ($event) {
+                              return _vm.confirmDelete(_vm.pbr.id)
+                            },
+                          },
+                        },
+                        [_vm._v("Delete")]
+                      ),
+                    ],
+                    1
+                  ),
+                ]),
+              ]),
+            ]),
+          ]),
         ]),
       ]),
     ]),
   ])
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("thead", [
+      _c("th", { attrs: { width: "70%" } }, [_vm._v("Nama Tempat")]),
+      _vm._v(" "),
+      _c("th", { staticClass: "text-center", attrs: { width: "30%" } }, [
+        _vm._v("Action"),
+      ]),
+    ])
+  },
+]
 render._withStripped = true
 
 

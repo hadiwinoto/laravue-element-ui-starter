@@ -11,14 +11,21 @@
         <div class="col-md-9">
           <div class="card">
             <div class="card-body">
-              <el-table :data="tableData" stripe style="width: 100%">
-                <el-table-column prop="date" label="Date" width="180">
-                </el-table-column>
-                <el-table-column prop="name" label="Name" width="180">
-                </el-table-column>
-                <el-table-column prop="address" label="Address">
-                </el-table-column>
-              </el-table>
+                <table class="table">
+                      <thead>
+                        <th width="70%">Nama Tempat</th>
+                        <th width="30%" class="text-center">Action</th>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td></td>
+                          <td class="text-center"> 
+                            <el-button size="mini" @click="handleEdit(pbr.id)">Edit</el-button>
+                            <el-button size="mini" type="danger" @click="confirmDelete(pbr.id)">Delete</el-button>
+                          </td>
+                        </tr>
+                      </tbody>
+                  </table>
             </div>
           </div>
         </div>
@@ -55,6 +62,12 @@
   
     },
     methods: {
+      confirmDelete(){
+
+      },
+      handleEdit(){
+
+      },
       onSubmit() {
         let data = {
           form: this.form,
