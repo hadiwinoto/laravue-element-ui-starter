@@ -51,4 +51,19 @@ class MasterDataController extends Controller
             'message' => "Data Deleted!"
         ]);
     }
+    public function getTempatPerbaikan(Request $request){
+        $data =  $this->master_tempat_perbaikan;
+        return response()->json([
+            'data' => $data
+        ]);
+    }
+    public function tambahDataTempat(Request $request){
+        $data =  $this->master_tempat_perbaikan;
+        $data->nama = $request->name;
+        $data->save();
+        return response()->json([
+            'data' => $data
+        ]);
+    }
+    
 }

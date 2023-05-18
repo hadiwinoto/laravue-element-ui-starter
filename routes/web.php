@@ -31,6 +31,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/master-data/fetch-perbaikan', [App\Http\Controllers\MasterDataController::class,'getJenisPerbaikan'])->name('getJenisPerbaikan');
     Route::post('/master-data/delete-master-perbaikan/{idjenis}', [App\Http\Controllers\MasterDataController::class,'DeleteJenisPerbaikan'])->name('DeleteJenisPerbaikan');
     Route::post('/master-data/delete-master-perbaikan/data/tambah', [App\Http\Controllers\MasterDataController::class,'tambahJenisPerbaikan'])->name('tambahJenisPerbaikan');
+    Route::get('/master-data/fetch-tempat-perbaikan', [App\Http\Controllers\MasterDataController::class,'getTempatPerbaikan'])->name('getTempatPerbaikan');
 
     //maintenance    
     Route::get('/maintenance/create', [App\Http\Controllers\Maintenance\MaintenanceController::class,'showZonaSatu'])->name('showZonaSatu');

@@ -8529,6 +8529,29 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   components: {
@@ -8545,28 +8568,45 @@ __webpack_require__.r(__webpack_exports__);
         type: [],
         resource: "",
         desc: "",
-        tableData: []
+        tableData: [],
+        showModal: false,
+        search: "",
+        buttonloading: "",
+        buttondisabled: false,
+        isLoadingContent: false,
+        tempatperbaikan: []
       }
     };
   },
-  created: function created() {},
+  created: function created() {
+    this.getData();
+  },
   methods: {
+    getData: function getData() {
+      var _this = this;
+
+      this.isLoadingContent = true;
+      this.$http.get("/master-data/fetch-tempat-perbaikan").then(function (response) {
+        _this.tempatperbaikan = response.data.data;
+        _this.isLoadingContent = false;
+      });
+    },
     confirmDelete: function confirmDelete() {},
     handleEdit: function handleEdit() {},
     onSubmit: function onSubmit() {
-      var _this = this;
+      var _this2 = this;
 
       var data = {
         form: this.form
       };
       this.$http.post("/api/submit/data", data).then(function (Response) {
-        _this.$notify({
+        _this2.$notify({
           title: "Success",
           message: "This is a success message",
           position: "bottom-right",
           type: "success"
         })["catch"](function (error) {
-          _this.$notify.error({
+          _this2.$notify.error({
             title: "Error",
             message: "This is an error message",
             position: "bottom-right"
@@ -99570,65 +99610,164 @@ var render = function () {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "container" }, [
-    _c("div", { staticClass: "row justify-content-center" }, [
-      _c("div", { staticClass: "col-md-3" }, [
-        _c("div", { staticClass: "card" }, [
-          _c("div", { staticClass: "card-body" }, [_c("SideMenu")], 1),
-        ]),
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "col-md-9" }, [
-        _c("div", { staticClass: "card" }, [
-          _c("div", { staticClass: "card-body" }, [
-            _c("table", { staticClass: "table" }, [
-              _vm._m(0),
-              _vm._v(" "),
-              _c("tbody", [
-                _c("tr", [
-                  _c("td"),
-                  _vm._v(" "),
-                  _c(
-                    "td",
-                    { staticClass: "text-center" },
-                    [
-                      _c(
-                        "el-button",
-                        {
-                          attrs: { size: "mini" },
-                          on: {
-                            click: function ($event) {
-                              return _vm.handleEdit(_vm.pbr.id)
-                            },
-                          },
-                        },
-                        [_vm._v("Edit")]
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "el-button",
-                        {
-                          attrs: { size: "mini", type: "danger" },
-                          on: {
-                            click: function ($event) {
-                              return _vm.confirmDelete(_vm.pbr.id)
-                            },
-                          },
-                        },
-                        [_vm._v("Delete")]
-                      ),
-                    ],
-                    1
-                  ),
-                ]),
-              ]),
-            ]),
+    _c(
+      "div",
+      { staticClass: "row justify-content-center" },
+      [
+        _c("div", { staticClass: "col-md-3" }, [
+          _c("div", { staticClass: "card" }, [
+            _c("div", { staticClass: "card-body" }, [_c("SideMenu")], 1),
           ]),
         ]),
-      ]),
-    ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "col-md-9" }, [
+          _c("div", { staticClass: "card" }, [
+            _c(
+              "div",
+              { staticClass: "card-body" },
+              [
+                _vm._m(0),
+                _vm._v(" "),
+                _c(
+                  "el-button",
+                  {
+                    staticClass: "mb-2",
+                    staticStyle: { float: "right" },
+                    attrs: { size: "small", type: "primary" },
+                    on: {
+                      click: function ($event) {
+                        _vm.showModal = true
+                      },
+                    },
+                  },
+                  [_vm._v("Tambah\n              Data")]
+                ),
+                _vm._v(" "),
+                _c("table", { staticClass: "table" }, [
+                  _vm._m(1),
+                  _vm._v(" "),
+                  _c("tbody", [
+                    _c("tr", [
+                      _c("td"),
+                      _vm._v(" "),
+                      _c(
+                        "td",
+                        { staticClass: "text-center" },
+                        [
+                          _c(
+                            "el-button",
+                            {
+                              attrs: { size: "mini" },
+                              on: {
+                                click: function ($event) {
+                                  return _vm.handleEdit(_vm.pbr.id)
+                                },
+                              },
+                            },
+                            [_vm._v("Edit")]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "el-button",
+                            {
+                              attrs: { size: "mini", type: "danger" },
+                              on: {
+                                click: function ($event) {
+                                  return _vm.confirmDelete(_vm.pbr.id)
+                                },
+                              },
+                            },
+                            [_vm._v("Delete")]
+                          ),
+                        ],
+                        1
+                      ),
+                    ]),
+                  ]),
+                ]),
+              ],
+              1
+            ),
+          ]),
+        ]),
+        _vm._v(" "),
+        _c(
+          "Modal",
+          {
+            attrs: { "based-on": _vm.showModal, title: "Input Data" },
+            on: {
+              close: function ($event) {
+                _vm.showModal = false
+              },
+            },
+          },
+          [
+            _c("div", { staticClass: "row" }, [
+              _c(
+                "form",
+                {
+                  on: {
+                    submit: function ($event) {
+                      $event.preventDefault()
+                      return _vm.onSubmit.apply(null, arguments)
+                    },
+                  },
+                },
+                [
+                  _c("div", { staticClass: "form-group row mb-3" }, [
+                    _c("label", { staticClass: "col-sm-4 col-form-label" }, [
+                      _vm._v("Nama Tempat"),
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "col-sm-8" }, [
+                      _c("input", {
+                        staticClass: "form-control",
+                        attrs: { type: "text" },
+                      }),
+                    ]),
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "form-group row mb-3" }, [
+                    _c("label", { staticClass: "col-sm-4 col-form-label" }),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "col-sm-8" }, [
+                      _c(
+                        "button",
+                        {
+                          staticClass: "btn btn-primary",
+                          attrs: {
+                            type: "submit",
+                            disabled: _vm.buttondisabled,
+                            size: "small",
+                          },
+                        },
+                        [
+                          _c("span", {
+                            class: _vm.buttonloading,
+                            attrs: { role: "status", "aria-hidden": "true" },
+                          }),
+                          _vm._v("Submit\n                "),
+                        ]
+                      ),
+                    ]),
+                  ]),
+                ]
+              ),
+            ]),
+          ]
+        ),
+      ],
+      1
+    ),
   ])
 }
 var staticRenderFns = [
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("span", [_c("b", [_vm._v("Master Tempat Perbaikan")])])
+  },
   function () {
     var _vm = this
     var _h = _vm.$createElement
