@@ -15,7 +15,7 @@
                   <i class="el-icon-setting"></i>
                   <a href="/master-data/tempat-perbaikan">Tempat Perbaikan</a>
                 </el-menu-item>
-                <el-menu-item index="3">
+                <!-- <el-menu-item index="3">
                   <i class="el-icon-setting"></i>
                   <a href="/master-data/model-perbaikan">Model Perbaikan</a>
                 </el-menu-item>
@@ -34,7 +34,7 @@
                 <el-menu-item index="7">
                   <i class="el-icon-setting"></i>
                   <a href="#">Nama Montir</a>
-                </el-menu-item>
+                </el-menu-item> -->
               </el-menu>
             </el-col>
     </div>

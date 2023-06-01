@@ -8559,22 +8559,15 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
+      buttonloading: "",
+      buttondisabled: false,
+      isLoadingContent: false,
+      showModal: false,
+      showModalMassal: false,
+      tempatperbaikan: [],
+      show: true,
       form: {
-        name: "",
-        region: "",
-        date1: "",
-        date2: "",
-        delivery: false,
-        type: [],
-        resource: "",
-        desc: "",
-        tableData: [],
-        showModal: false,
-        search: "",
-        buttonloading: "",
-        buttondisabled: false,
-        isLoadingContent: false,
-        tempatperbaikan: []
+        name: ""
       }
     };
   },
@@ -8591,29 +8584,65 @@ __webpack_require__.r(__webpack_exports__);
         _this.isLoadingContent = false;
       });
     },
-    confirmDelete: function confirmDelete() {},
-    handleEdit: function handleEdit() {},
-    onSubmit: function onSubmit() {
+    getById: function getById(id) {
       var _this2 = this;
 
-      var data = {
-        form: this.form
-      };
-      this.$http.post("/api/submit/data", data).then(function (Response) {
-        _this2.$notify({
-          title: "Success",
-          message: "This is a success message",
-          position: "bottom-right",
-          type: "success"
-        })["catch"](function (error) {
-          _this2.$notify.error({
-            title: "Error",
-            message: "This is an error message",
-            position: "bottom-right"
-          });
-        });
+      this.showModal = true;
+      this.$http.get("/master-data/fetch-tempat-perbaikan-byid", {
+        params: {
+          id: id
+        }
+      }).then(function (response) {
+        _this2.form.name = response.data.data.name;
+        _this2.isLoadingContent = false;
+      })["catch"](function (error) {
+        console.log('Gagal Memuta Data');
+      });
+    },
+    confirmDelete: function confirmDelete() {},
+    handleEdit: function handleEdit(id) {
+      var _this3 = this;
+
+      this.$http.post("/master-data/edit-tempat-perbaikan", id);
+      then(function (Response) {
+        _this3.$awn.success("Sukses Submit Data");
+
+        _this3.getData();
+
+        _this3.showModal = false;
+        _this3.buttonloading = "";
+        _this3.buttondisabled = false;
+      })["catch"](function (error) {
+        _this3.$awn.alert("Gagal Submit Data");
+
+        _this3.showModal = false;
+        _this3.buttonloading = "";
+        _this3.buttondisabled = false;
       });
     }
+  },
+  onSubmit: function onSubmit() {
+    var _this4 = this;
+
+    var data = {
+      form: this.form
+    };
+    this.$http.post("/master-data/submit-tempat-perbaikan", data);
+    then(function (Response) {
+      _this4.$awn.success("Sukses Submit Data");
+
+      _this4.getData();
+
+      _this4.showModal = false;
+      _this4.buttonloading = "";
+      _this4.buttondisabled = false;
+    })["catch"](function (error) {
+      _this4.$awn.alert("Gagal Submit Data");
+
+      _this4.showModal = false;
+      _this4.buttonloading = "";
+      _this4.buttondisabled = false;
+    });
   }
 });
 
@@ -8632,26 +8661,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 //
 //
 //
@@ -8771,10 +8780,21 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       });
     },
     handleEdit: function handleEdit(id) {
-      console.log(id);
+      var _this2 = this;
+
+      this.$http.get("/master-data/fetch-perbaikan", {
+        params: {
+          id: id
+        }
+      }).then(function (response) {
+        _this2.jenisperbaiakan = response.data;
+        _this2.isLoadingContent = false;
+      })["catch"](function () {
+        console.log('Gagal Ambil Data!');
+      });
     },
     confirmDelete: function confirmDelete(idjenis) {
-      var _this2 = this;
+      var _this3 = this;
 
       this.$confirm('This will permanently delete the Data. Continue?', 'Warning', {
         confirmButtonText: 'OK',
@@ -8782,37 +8802,37 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         type: 'warning',
         center: true
       }).then(function () {
-        _this2.$http.post("/master-data/delete-master-perbaikan/" + idjenis).then(function (Response) {
-          _this2.$awn.success("Success Delete Data!");
+        _this3.$http.post("/master-data/delete-master-perbaikan/" + idjenis).then(function (Response) {
+          _this3.$awn.success("Success Delete Data!");
 
-          _this2.getData();
+          _this3.getData();
         });
       })["catch"](function () {
-        _this2.$awn.alert("Gagal Delete Data!");
+        _this3.$awn.alert("Gagal Delete Data!");
 
-        _this2.getData();
+        _this3.getData();
       });
     },
     tambahData: function tambahData() {
-      var _this3 = this;
+      var _this4 = this;
 
       var data = this.form;
       this.buttonloading = "spinner-border spinner-border-sm";
       this.buttondisabled = true;
       this.$http.post("/master-data/delete-master-perbaikan/data/tambah", data).then(function (Response) {
-        _this3.$awn.success("Sukses Submit Data");
+        _this4.$awn.success("Sukses Submit Data");
 
-        _this3.getData();
+        _this4.getData();
 
-        _this3.showModal = false;
-        _this3.buttonloading = "";
-        _this3.buttondisabled = false;
+        _this4.showModal = false;
+        _this4.buttonloading = "";
+        _this4.buttondisabled = false;
       })["catch"](function (error) {
-        _this3.$awn.alert("Gagal Submit Data");
+        _this4.$awn.alert("Gagal Submit Data");
 
-        _this3.showModal = false;
-        _this3.buttonloading = "";
-        _this3.buttondisabled = false;
+        _this4.showModal = false;
+        _this4.buttonloading = "";
+        _this4.buttondisabled = false;
       });
     }
   }
@@ -99542,40 +99562,6 @@ var render = function () {
                   _vm._v("Tempat Perbaikan"),
                 ]),
               ]),
-              _vm._v(" "),
-              _c("el-menu-item", { attrs: { index: "3" } }, [
-                _c("i", { staticClass: "el-icon-setting" }),
-                _vm._v(" "),
-                _c("a", { attrs: { href: "/master-data/model-perbaikan" } }, [
-                  _vm._v("Model Perbaikan"),
-                ]),
-              ]),
-              _vm._v(" "),
-              _c("el-menu-item", { attrs: { index: "4" } }, [
-                _c("i", { staticClass: "el-icon-setting" }),
-                _vm._v(" "),
-                _c("a", { attrs: { href: "#" } }, [
-                  _vm._v("Nomor Polisi Kendaraan"),
-                ]),
-              ]),
-              _vm._v(" "),
-              _c("el-menu-item", { attrs: { index: "5" } }, [
-                _c("i", { staticClass: "el-icon-setting" }),
-                _vm._v(" "),
-                _c("a", { attrs: { href: "#" } }, [_vm._v("Nomor Kendaraan")]),
-              ]),
-              _vm._v(" "),
-              _c("el-menu-item", { attrs: { index: "6" } }, [
-                _c("i", { staticClass: "el-icon-setting" }),
-                _vm._v(" "),
-                _c("a", { attrs: { href: "#" } }, [_vm._v("Nama Supir")]),
-              ]),
-              _vm._v(" "),
-              _c("el-menu-item", { attrs: { index: "7" } }, [
-                _c("i", { staticClass: "el-icon-setting" }),
-                _vm._v(" "),
-                _c("a", { attrs: { href: "#" } }, [_vm._v("Nama Montir")]),
-              ]),
             ],
             1
           ),
@@ -99646,44 +99632,48 @@ var render = function () {
                 _c("table", { staticClass: "table" }, [
                   _vm._m(1),
                   _vm._v(" "),
-                  _c("tbody", [
-                    _c("tr", [
-                      _c("td"),
-                      _vm._v(" "),
-                      _c(
-                        "td",
-                        { staticClass: "text-center" },
-                        [
-                          _c(
-                            "el-button",
-                            {
-                              attrs: { size: "mini" },
-                              on: {
-                                click: function ($event) {
-                                  return _vm.handleEdit(_vm.pbr.id)
+                  _c(
+                    "tbody",
+                    _vm._l(_vm.tempatperbaikan, function (pbd, idxk) {
+                      return _c("tr", { key: idxk }, [
+                        _c("td", [_vm._v(_vm._s(pbd.name))]),
+                        _vm._v(" "),
+                        _c(
+                          "td",
+                          { staticClass: "text-center" },
+                          [
+                            _c(
+                              "el-button",
+                              {
+                                attrs: { size: "mini" },
+                                on: {
+                                  click: function ($event) {
+                                    return _vm.getById(pbd.id)
+                                  },
                                 },
                               },
-                            },
-                            [_vm._v("Edit")]
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "el-button",
-                            {
-                              attrs: { size: "mini", type: "danger" },
-                              on: {
-                                click: function ($event) {
-                                  return _vm.confirmDelete(_vm.pbr.id)
+                              [_vm._v("Edit")]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "el-button",
+                              {
+                                attrs: { size: "mini", type: "danger" },
+                                on: {
+                                  click: function ($event) {
+                                    return _vm.confirmDelete(pbd.id)
+                                  },
                                 },
                               },
-                            },
-                            [_vm._v("Delete")]
-                          ),
-                        ],
-                        1
-                      ),
-                    ]),
-                  ]),
+                              [_vm._v("Delete")]
+                            ),
+                          ],
+                          1
+                        ),
+                      ])
+                    }),
+                    0
+                  ),
                 ]),
               ],
               1
@@ -99721,8 +99711,25 @@ var render = function () {
                     _vm._v(" "),
                     _c("div", { staticClass: "col-sm-8" }, [
                       _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.form.name,
+                            expression: "form.name",
+                          },
+                        ],
                         staticClass: "form-control",
                         attrs: { type: "text" },
+                        domProps: { value: _vm.form.name },
+                        on: {
+                          input: function ($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(_vm.form, "name", $event.target.value)
+                          },
+                        },
                       }),
                     ]),
                   ]),
@@ -99842,46 +99849,6 @@ var render = function () {
                             },
                             [_vm._v("Tempat Perbaikan")]
                           ),
-                        ]),
-                        _vm._v(" "),
-                        _c("el-menu-item", { attrs: { index: "3" } }, [
-                          _c("i", { staticClass: "el-icon-setting" }),
-                          _vm._v(" "),
-                          _c("a", { attrs: { href: "#" } }, [
-                            _vm._v("Model Perbaikan"),
-                          ]),
-                        ]),
-                        _vm._v(" "),
-                        _c("el-menu-item", { attrs: { index: "4" } }, [
-                          _c("i", { staticClass: "el-icon-setting" }),
-                          _vm._v(" "),
-                          _c("a", { attrs: { href: "#" } }, [
-                            _vm._v("Nomor Polisi Kendaraan"),
-                          ]),
-                        ]),
-                        _vm._v(" "),
-                        _c("el-menu-item", { attrs: { index: "5" } }, [
-                          _c("i", { staticClass: "el-icon-setting" }),
-                          _vm._v(" "),
-                          _c("a", { attrs: { href: "#" } }, [
-                            _vm._v("Nomor Kendaraan"),
-                          ]),
-                        ]),
-                        _vm._v(" "),
-                        _c("el-menu-item", { attrs: { index: "6" } }, [
-                          _c("i", { staticClass: "el-icon-setting" }),
-                          _vm._v(" "),
-                          _c("a", { attrs: { href: "#" } }, [
-                            _vm._v("Nama Supir"),
-                          ]),
-                        ]),
-                        _vm._v(" "),
-                        _c("el-menu-item", { attrs: { index: "7" } }, [
-                          _c("i", { staticClass: "el-icon-setting" }),
-                          _vm._v(" "),
-                          _c("a", { attrs: { href: "#" } }, [
-                            _vm._v("Nama Montir"),
-                          ]),
                         ]),
                       ],
                       1

@@ -159,7 +159,6 @@ class MaintenanceController extends Controller
         $data =  $this->maintenance
             ->where('id',$request->id)
             ->first();
-            $data->user_update          =  Auth::user()->id;
             $data->tanggal_perbaikan    =  Carbon::parse($request->form['tanggal_perbaikan'])->format('y-m-d');
             $data->jenis_perbaikan      =  $request->form['jenis_perbaikan'];
             $data->detail_perbaikan     =  $request->form['detail_perbaikan'];
@@ -177,7 +176,11 @@ class MaintenanceController extends Controller
         return response()->json([
             'data' => $data,
         ]);
+    }
+    public function submitDataTempat(){
+       $data =  $this->master_tempat_perbaikan;
+       $dat->nama =  $request->nama;
+       $data->save();
 
-        // return $request->id;
-    }   
+    }
 }

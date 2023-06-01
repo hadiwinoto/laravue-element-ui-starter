@@ -52,17 +52,35 @@ class MasterDataController extends Controller
         ]);
     }
     public function getTempatPerbaikan(Request $request){
-        $data =  $this->master_tempat_perbaikan;
+        $data =  $this->master_tempat_perbaikan->get();
+        return response()->json([
+            'data' => $data
+        ]);
+    }
+    public function getTempatPerbaikanByid(Request $request){
+        $data =  $this->master_tempat_perbaikan
+        ->where('id',$request->id)
+        ->first();
         return response()->json([
             'data' => $data
         ]);
     }
     public function tambahDataTempat(Request $request){
         $data =  $this->master_tempat_perbaikan;
-        $data->nama = $request->name;
+        $data->nama = $request->form['name'];
         $data->save();
         return response()->json([
             'data' => $data
+        ]);
+    }
+    public function editDataTempat(Request $request){
+        $data =  $this->master_tempat_perbaikan
+        ->where('id',$request->id)->first();
+
+
+        return response()->json([
+            'data' => $data,
+            'message' => 'Sukses Edit Data'
         ]);
     }
     

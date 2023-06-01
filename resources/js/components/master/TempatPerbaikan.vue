@@ -20,11 +20,11 @@
                 <th width="30%" class="text-center">Action</th>
               </thead>
               <tbody>
-                <tr>
-                  <td></td>
+                <tr v-for="(pbd,idxk) in tempatperbaikan" :key="idxk">  
+                  <td>{{pbd.name}}</td>
                   <td class="text-center">
-                    <el-button size="mini" @click="handleEdit(pbr.id)">Edit</el-button>
-                    <el-button size="mini" type="danger" @click="confirmDelete(pbr.id)">Delete</el-button>
+                    <el-button size="mini" @click="getById(pbd.id)">Edit</el-button>
+                    <el-button size="mini" type="danger" @click="confirmDelete(pbd.id)">Delete</el-button>
                   </td>
                 </tr>
               </tbody>
@@ -38,7 +38,7 @@
             <div class="form-group row mb-3">
               <label class="col-sm-4 col-form-label">Nama Tempat</label>
               <div class="col-sm-8">
-                <input type="text" class="form-control" />
+                <input type="text" v-model="form.name" class="form-control" />
               </div>
             </div>
             <div class="form-group row mb-3">
@@ -64,24 +64,15 @@ export default {
   },
   data() {
     return {
-      form: {
-        name: "",
-        region: "",
-        date1: "",
-        date2: "",
-        delivery: false,
-        type: [],
-        resource: "",
-        desc: "",
-        tableData: [
-
-        ],
-        showModal: false,
-        search: "",
-        buttonloading: "",
+      buttonloading: "",
         buttondisabled: false,
         isLoadingContent: false,
+        showModal: false,
+        showModalMassal: false,
         tempatperbaikan: [],
+        show: true,
+        form: {
+          name: "",
       },
     };
   },
@@ -98,32 +89,60 @@ export default {
           this.isLoadingContent = false;
         });
     },
+    getById(id){
+      this.showModal = true;
+      this.$http
+        .get("/master-data/fetch-tempat-perbaikan-byid",{
+          params:{
+            id:id
+          }
+        })
+        .then((response) => {
+            this.form.name = response.data.data.name;
+            this.isLoadingContent = false;
+        }).catch((error) => {
+            console.log('Gagal Memuta Data');
+        });
+    },
     confirmDelete() {
 
     },
-    handleEdit() {
-
+    handleEdit(id) {
+      this.$http.post("/master-data/edit-tempat-perbaikan", id)
+      then((Response) => {
+            this.$awn.success("Sukses Submit Data");
+            this.getData();
+            this.showModal = false;
+            this.buttonloading = "";
+            this.buttondisabled = false;
+          })
+          .catch((error) => {
+            this.$awn.alert("Gagal Submit Data");
+            this.showModal = false;
+            this.buttonloading = "";
+            this.buttondisabled = false;
+          });
+        },
     },
     onSubmit() {
       let data = {
         form: this.form,
       };
-      this.$http.post("/api/submit/data", data).then((Response) => {
-        this.$notify({
-          title: "Success",
-          message: "This is a success message",
-          position: "bottom-right",
-          type: "success",
-        }).catch((error) => {
-          this.$notify.error({
-            title: "Error",
-            message: "This is an error message",
-            position: "bottom-right",
+      this.$http.post("/master-data/submit-tempat-perbaikan", data)
+      then((Response) => {
+            this.$awn.success("Sukses Submit Data");
+            this.getData();
+            this.showModal = false;
+            this.buttonloading = "";
+            this.buttondisabled = false;
+          })
+          .catch((error) => {
+            this.$awn.alert("Gagal Submit Data");
+            this.showModal = false;
+            this.buttonloading = "";
+            this.buttondisabled = false;
           });
-        });
-      });
-    },
-  },
-};
+        },
+  };
 </script>
   
