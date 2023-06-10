@@ -7,8 +7,7 @@
             <span>History Maintenance</span>
             <div style="float: right">
               <el-button type="success" size="small" class="ml-3">
-                <i class="el-icon-download"></i>
-                <el-link style="color: white; text-decoration: none">
+                <el-link href="/download/template"  style="color: white; text-decoration: none">
                   Template
                 </el-link>
               </el-button>
@@ -18,7 +17,6 @@
                 class="ml-3"
                 @click="showModal = true"
               >
-                <i class="el-icon-edit"></i>
                 <el-link style="color: white; text-decoration: none">
                   Create
                 </el-link>
@@ -90,6 +88,12 @@
                     v-model="filter.sopir"
                     placeholder="Sopir"
                   />
+                </div>
+                <div class="col">
+                  <button
+                    class="btn btn-primary btn-sm mt-4"
+                    placeholder="Sopir"
+                  ><i class="el-icon-search text-white"></i>Cari</button>
                 </div>
               </div>
             </div>
@@ -260,11 +264,11 @@
               <div class="form-group row mb-3">
                 <label class="col-sm-4 col-form-label">Nomor Polisi</label>
                 <div class="col-sm-8">
-                  <v-select
+                  <input
                     type="text"
-                    :options="optionskendaraan"
                     v-model="form.no_polisi"
-                  ></v-select>
+                    class="form-control"
+                  />
                 </div>
               </div>
               <div class="form-group row mb-3">
@@ -345,9 +349,10 @@
           title="Input Massal"
           @close="showModalMassal = false"
         >
+        <form @submit.prevent="uploadFile">
           <div class="container">
             <div class="row justify-content-center">
-              <input type="file" class="form-control" />
+              <input type="file" ref="fileInput" @change="onFileChange" class="form-control" />
             </div>
             <div class="row justify-content-center mt-3">
               <button
@@ -365,10 +370,12 @@
               </button>
             </div>
             <el-form-item>
-              <el-button type="primary">Create</el-button>
+              <button type="submit">Submit</button>
               <el-button>Cancel</el-button>
             </el-form-item>
           </div>
+        </form>
+         
         </Modal>
       </div>
     </div>
@@ -408,6 +415,7 @@ export default {
         per_page: 0,
         total: "",
       },
+      file: null,
       filter: {
         jenis_perbaikan: "",
         tempat_perbaikan: "",
@@ -507,6 +515,23 @@ export default {
     formattglindo(value) {
       return moment(value).locale("id").format("LL");
     },
+    onFileChange(event) {
+            this.file = event.target.files[0];
+    },
+    uploadFile() {
+        let formData = new FormData();
+            formData.append('file', this.file);
+            axios.post('/import/template', formData)
+              .then(response => {
+                this.$awn.success("Sukses Submit Data");
+                this.showModalMassal = false;
+                this.buttonloading = "";
+                this.buttondisabled = false;
+            })
+            .catch(error => {
+               this.$awn.error("Gagal Import Data!");
+            });
+    }
   },
 };
 </script>

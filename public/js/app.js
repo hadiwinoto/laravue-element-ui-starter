@@ -8167,6 +8167,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -8198,6 +8205,7 @@ __webpack_require__.r(__webpack_exports__);
         per_page: 0,
         total: ""
       },
+      file: null,
       filter: {
         jenis_perbaikan: "",
         tempat_perbaikan: "",
@@ -8300,6 +8308,24 @@ __webpack_require__.r(__webpack_exports__);
     },
     formattglindo: function formattglindo(value) {
       return moment__WEBPACK_IMPORTED_MODULE_0___default()(value).locale("id").format("LL");
+    },
+    onFileChange: function onFileChange(event) {
+      this.file = event.target.files[0];
+    },
+    uploadFile: function uploadFile() {
+      var _this3 = this;
+
+      var formData = new FormData();
+      formData.append('file', this.file);
+      axios.post('/import/template', formData).then(function (response) {
+        _this3.$awn.success("Sukses Submit Data");
+
+        _this3.showModalMassal = false;
+        _this3.buttonloading = "";
+        _this3.buttondisabled = false;
+      })["catch"](function (error) {
+        _this3.$awn.error("Gagal Import Data!");
+      });
     }
   }
 });
@@ -97604,7 +97630,9 @@ var staticRenderFns = [
       _c("div", { staticClass: "row justify-content-center" }, [
         _c("div", { staticClass: "col-md-12" }, [
           _c("div", { staticClass: "card" }, [
-            _c("div", { staticClass: "card-body" }),
+            _c("div", { staticClass: "card-body" }, [
+              _c("span", [_vm._v("Welcome To JMP History Maintenance App")]),
+            ]),
           ]),
         ]),
       ]),
@@ -98388,8 +98416,6 @@ var render = function () {
                         attrs: { type: "success", size: "small" },
                       },
                       [
-                        _c("i", { staticClass: "el-icon-download" }),
-                        _vm._v(" "),
                         _c(
                           "el-link",
                           {
@@ -98397,6 +98423,7 @@ var render = function () {
                               color: "white",
                               "text-decoration": "none",
                             },
+                            attrs: { href: "/download/template" },
                           },
                           [
                             _vm._v(
@@ -98420,8 +98447,6 @@ var render = function () {
                         },
                       },
                       [
-                        _c("i", { staticClass: "el-icon-edit" }),
-                        _vm._v(" "),
                         _c(
                           "el-link",
                           {
@@ -98667,6 +98692,20 @@ var render = function () {
                           },
                         },
                       }),
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "col" }, [
+                      _c(
+                        "button",
+                        {
+                          staticClass: "btn btn-primary btn-sm mt-4",
+                          attrs: { placeholder: "Sopir" },
+                        },
+                        [
+                          _c("i", { staticClass: "el-icon-search text-white" }),
+                          _vm._v("Cari"),
+                        ]
+                      ),
                     ]),
                   ]),
                 ]),
@@ -99099,26 +99138,33 @@ var render = function () {
                         _vm._v("Nomor Polisi"),
                       ]),
                       _vm._v(" "),
-                      _c(
-                        "div",
-                        { staticClass: "col-sm-8" },
-                        [
-                          _c("v-select", {
-                            attrs: {
-                              type: "text",
-                              options: _vm.optionskendaraan,
-                            },
-                            model: {
+                      _c("div", { staticClass: "col-sm-8" }, [
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
                               value: _vm.form.no_polisi,
-                              callback: function ($$v) {
-                                _vm.$set(_vm.form, "no_polisi", $$v)
-                              },
                               expression: "form.no_polisi",
                             },
-                          }),
-                        ],
-                        1
-                      ),
+                          ],
+                          staticClass: "form-control",
+                          attrs: { type: "text" },
+                          domProps: { value: _vm.form.no_polisi },
+                          on: {
+                            input: function ($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(
+                                _vm.form,
+                                "no_polisi",
+                                $event.target.value
+                              )
+                            },
+                          },
+                        }),
+                      ]),
                     ]),
                     _vm._v(" "),
                     _c("div", { staticClass: "form-group row mb-3" }, [
@@ -99319,56 +99365,74 @@ var render = function () {
             },
             [
               _c(
-                "div",
-                { staticClass: "container" },
+                "form",
+                {
+                  on: {
+                    submit: function ($event) {
+                      $event.preventDefault()
+                      return _vm.uploadFile.apply(null, arguments)
+                    },
+                  },
+                },
                 [
-                  _c("div", { staticClass: "row justify-content-center" }, [
-                    _c("input", {
-                      staticClass: "form-control",
-                      attrs: { type: "file" },
-                    }),
-                  ]),
-                  _vm._v(" "),
                   _c(
                     "div",
-                    { staticClass: "row justify-content-center mt-3" },
+                    { staticClass: "container" },
                     [
+                      _c("div", { staticClass: "row justify-content-center" }, [
+                        _c("input", {
+                          ref: "fileInput",
+                          staticClass: "form-control",
+                          attrs: { type: "file" },
+                          on: { change: _vm.onFileChange },
+                        }),
+                      ]),
+                      _vm._v(" "),
                       _c(
-                        "button",
-                        {
-                          staticClass: "btn btn-primary",
-                          attrs: {
-                            type: "submit",
-                            disabled: _vm.buttondisabled,
-                            size: "small",
-                          },
-                        },
+                        "div",
+                        { staticClass: "row justify-content-center mt-3" },
                         [
-                          _c("span", {
-                            class: _vm.buttonloading,
-                            attrs: { role: "status", "aria-hidden": "true" },
-                          }),
-                          _vm._v(
-                            "\r\n                Upload\r\n              "
+                          _c(
+                            "button",
+                            {
+                              staticClass: "btn btn-primary",
+                              attrs: {
+                                type: "submit",
+                                disabled: _vm.buttondisabled,
+                                size: "small",
+                              },
+                            },
+                            [
+                              _c("span", {
+                                class: _vm.buttonloading,
+                                attrs: {
+                                  role: "status",
+                                  "aria-hidden": "true",
+                                },
+                              }),
+                              _vm._v(
+                                "\r\n                Upload\r\n              "
+                              ),
+                            ]
                           ),
                         ]
                       ),
-                    ]
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "el-form-item",
-                    [
-                      _c("el-button", { attrs: { type: "primary" } }, [
-                        _vm._v("Create"),
-                      ]),
                       _vm._v(" "),
-                      _c("el-button", [_vm._v("Cancel")]),
+                      _c(
+                        "el-form-item",
+                        [
+                          _c("button", { attrs: { type: "submit" } }, [
+                            _vm._v("Submit"),
+                          ]),
+                          _vm._v(" "),
+                          _c("el-button", [_vm._v("Cancel")]),
+                        ],
+                        1
+                      ),
                     ],
                     1
                   ),
-                ],
-                1
+                ]
               ),
             ]
           ),

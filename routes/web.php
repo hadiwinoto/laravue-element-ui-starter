@@ -22,6 +22,8 @@ Auth::routes();
 Route::group(['middleware' => ['auth']], function () {
 
     //master
+    Route::get('/download/template', [App\Http\Controllers\Maintenance\InputMassalController::class, 'downloadTemplate'])->name('downloadTemplate');
+    Route::post('/import/template', [App\Http\Controllers\Maintenance\InputMassalController::class, 'importData'])->name('importData');
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
     Route::get('/maintenance', [App\Http\Controllers\Maintenance\MaintenanceController::class, 'indexMaintenance'])->name('maintenance');
     Route::get('/master-data', [App\Http\Controllers\MasterDataController::class, 'indexMasterData'])->name('masterdata');

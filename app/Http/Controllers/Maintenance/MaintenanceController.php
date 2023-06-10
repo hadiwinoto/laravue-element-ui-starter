@@ -181,6 +181,5 @@ class MaintenanceController extends Controller
        $data =  $this->master_tempat_perbaikan;
        $dat->nama =  $request->nama;
        $data->save();
-
     }
 }
