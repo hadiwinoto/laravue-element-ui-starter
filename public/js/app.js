@@ -9145,7 +9145,7 @@ vue__WEBPACK_IMPORTED_MODULE_10__["default"].use((element_ui__WEBPACK_IMPORTED_M
 var option_alert = {
   position: 'bottom-right',
   labels: {
-    success: 'Ok',
+    success: 'Success',
     alert: 'Oops...'
   },
   duration: 700

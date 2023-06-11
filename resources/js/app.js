@@ -41,7 +41,7 @@ Vue.use(ElementUI, { locale })
 const option_alert = {
     position: 'bottom-right',
     labels: {
-        success: 'Ok',
+        success: 'Success',
         alert: 'Oops...'
     },
     duration: 700
