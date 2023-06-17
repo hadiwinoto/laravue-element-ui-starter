@@ -95,7 +95,7 @@ class MaintenanceController extends Controller
 
         $data =  $this->maintenance;
         $data->user_create          =  Auth::user()->id;
-        $data->nomor_perbaikan      =  'JMP'.Carbon::now()->timestamp;
+        $data->nomor_perbaikan      =  'JMP'.Carbon::now()->timestamp.Auth::user()->id;
         $data->tanggal_perbaikan    =  Carbon::parse($request->form['tanggal_perbaikan'])->format('y-m-d');
         $data->jenis_perbaikan      =  $request->form['jenis_perbaikan'];
         $data->detail_perbaikan     =  $request->form['detail_perbaikan'];

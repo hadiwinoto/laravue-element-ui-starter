@@ -35,8 +35,6 @@ class InputMassalController extends Controller
             if($cekvalue == null || $cekvalue == ''){
             break;
             }
-
-            
             $arr = [
                 'nomor_perbaikan'       => 'JMP'.Carbon::now()->timestamp.$i,
                 'tanggal_perbaikan'     => Carbon::parse($spreadsheet->getActiveSheet()->getCell('A' . $start)->getValue())->format('Y-m-d'),
