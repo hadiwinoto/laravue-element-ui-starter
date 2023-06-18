@@ -17,7 +17,9 @@ class InputMassalController extends Controller
     public function downloadTemplate(Request $request){
         $storage_name = 'template-input-massal.xlsx';
         $path = storage_path('app/public/template/'.$storage_name);
-        ob_end_clean();
+        if (ob_get_length() > 0) {
+            ob_end_clean();
+        }
         $headers = array(
           'Content-Type: image,application/vnd.ms-excel; charset=utf-8"',
         );
