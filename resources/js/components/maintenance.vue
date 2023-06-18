@@ -36,11 +36,11 @@
               <div class="row mb-3">
                 <div class="col">
                   <label>Tanggal Perbaikan</label>
-                  <DatePicker v-model="filter.tanggalstart"></DatePicker>
+                  <DatePicker v-model="filter.tanggalstart" @change="handleChangeTanggalStart"></DatePicker>
                 </div>
                 <div class="col">
                   <label>Tanggal Selesai</label>
-                  <DatePicker v-model="filter.tanggalend"></DatePicker>
+                  <DatePicker v-model="filter.tanggalend" @change="handleChangeTanggalEnd"></DatePicker>
                 </div>
                 <div class="col">
                   <label>Jenis</label>
@@ -91,6 +91,7 @@
                 </div>
                 <div class="col">
                   <button
+                    @click="fetchData"
                     class="btn btn-primary btn-sm mt-4"
                     placeholder="Sopir"
                   ><i class="el-icon-search text-white"></i>Cari</button>
@@ -497,6 +498,20 @@ export default {
       }
       this.fetchData();
     },
+    handleChangeTanggalStart(event) {
+      if (event === null) {
+        this.filter.tanggalstart = null;
+      } else {
+        this.filter.tanggalstart = event;
+      }
+    },
+    handleChangeTanggalEnd(event) {
+      if (event === null) {
+        this.filter.tanggalend = null;
+      } else {
+        this.filter.tanggalend = event;
+      }
+    },
     onChangeModel(event) {
       if (event === null) {
         this.filter.model_perbaikan = null;
@@ -527,6 +542,7 @@ export default {
                 this.showModalMassal = false;
                 this.buttonloading = "";
                 this.buttondisabled = false;
+                this.fetchData();
             })
             .catch(error => {
                this.$awn.error("Gagal Import Data!");

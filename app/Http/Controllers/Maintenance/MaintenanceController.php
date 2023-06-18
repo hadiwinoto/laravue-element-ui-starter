@@ -53,7 +53,13 @@ class MaintenanceController extends Controller
           ->when(!empty($filter['model_perbaikan']), function ($query) use ($filter) {
             return $query->where('model_perbaikan',($filter['model_perbaikan']));
           })
-        ->paginate(100);
+          ->when(!empty($filter['tanggalstart']) && !empty($filter['tanggalend']), function ($query) use ($filter) {
+            $startDate = $filter['tanggalstart'];
+            $endDate = $filter['tanggalend'];
+            return $query->whereBetween('tanggal_perbaikan', [$startDate, $endDate]);
+        })
+          
+        ->paginate(50);
 
         $jenisperbaikan =  $this->masterjenis->get();
         $master_tempat_perbaikan =  $this->master_tempat_perbaikan->get();

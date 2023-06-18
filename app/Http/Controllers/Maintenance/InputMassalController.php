@@ -35,9 +35,11 @@ class InputMassalController extends Controller
             if($cekvalue == null || $cekvalue == ''){
             break;
             }
+            $tanggalperbaikan = 
+            $date = 
             $arr = [
                 'nomor_perbaikan'       => 'JMP'.Carbon::now()->timestamp.$i,
-                'tanggal_perbaikan'     => Carbon::parse($spreadsheet->getActiveSheet()->getCell('A' . $start)->getValue())->format('Y-m-d'),
+                'tanggal_perbaikan'     => \PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($spreadsheet->getActiveSheet()->getCell('A' . $start)->getValue()),
                 'jenis_perbaikan'       => $spreadsheet->getActiveSheet()->getCell('B' . $start)->getValue(),
                 'detail_perbaikan'      => $spreadsheet->getActiveSheet()->getCell('C' . $start)->getValue(),
                 'tempat_perbaikan'      => $spreadsheet->getActiveSheet()->getCell('D' . $start)->getValue(),
@@ -46,7 +48,7 @@ class InputMassalController extends Controller
                 'nomor_polisi'          => $spreadsheet->getActiveSheet()->getCell('G' . $start)->getValue(),
                 'nama_supir'            => $spreadsheet->getActiveSheet()->getCell('H' . $start)->getValue(),
                 'nama_montir'           => $spreadsheet->getActiveSheet()->getCell('I' . $start)->getValue(),
-                'tanggal_selesai'       => Carbon::parse($spreadsheet->getActiveSheet()->getCell('J' . $start)->getValue())->format('Y-m-d'),
+                'tanggal_selesai'       => \PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($spreadsheet->getActiveSheet()->getCell('J' . $start)->getValue()),
                 'biaya'                 => $spreadsheet->getActiveSheet()->getCell('K' . $start)->getValue(),
                 'keterangan'            => $spreadsheet->getActiveSheet()->getCell('L' . $start)->getValue(),
             ];

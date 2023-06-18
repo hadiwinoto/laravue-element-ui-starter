@@ -8174,6 +8174,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 
 
@@ -8291,6 +8292,20 @@ __webpack_require__.r(__webpack_exports__);
 
       this.fetchData();
     },
+    handleChangeTanggalStart: function handleChangeTanggalStart(event) {
+      if (event === null) {
+        this.filter.tanggalstart = null;
+      } else {
+        this.filter.tanggalstart = event;
+      }
+    },
+    handleChangeTanggalEnd: function handleChangeTanggalEnd(event) {
+      if (event === null) {
+        this.filter.tanggalend = null;
+      } else {
+        this.filter.tanggalend = event;
+      }
+    },
     onChangeModel: function onChangeModel(event) {
       if (event === null) {
         this.filter.model_perbaikan = null;
@@ -8323,6 +8338,8 @@ __webpack_require__.r(__webpack_exports__);
         _this3.showModalMassal = false;
         _this3.buttonloading = "";
         _this3.buttondisabled = false;
+
+        _this3.fetchData();
       })["catch"](function (error) {
         _this3.$awn.error("Gagal Import Data!");
       });
@@ -98499,6 +98516,7 @@ var render = function () {
                         _c("label", [_vm._v("Tanggal Perbaikan")]),
                         _vm._v(" "),
                         _c("DatePicker", {
+                          on: { change: _vm.handleChangeTanggalStart },
                           model: {
                             value: _vm.filter.tanggalstart,
                             callback: function ($$v) {
@@ -98518,6 +98536,7 @@ var render = function () {
                         _c("label", [_vm._v("Tanggal Selesai")]),
                         _vm._v(" "),
                         _c("DatePicker", {
+                          on: { change: _vm.handleChangeTanggalEnd },
                           model: {
                             value: _vm.filter.tanggalend,
                             callback: function ($$v) {
@@ -98700,6 +98719,7 @@ var render = function () {
                         {
                           staticClass: "btn btn-primary btn-sm mt-4",
                           attrs: { placeholder: "Sopir" },
+                          on: { click: _vm.fetchData },
                         },
                         [
                           _c("i", { staticClass: "el-icon-search text-white" }),
