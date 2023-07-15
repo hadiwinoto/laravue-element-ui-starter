@@ -44,8 +44,14 @@ class MaintenanceController extends Controller
 
             return $query->whereBetween('tanggal_selesai', [$startdate, $enddate]);
           })
-        ->when(!empty($filter['jenis_perbaikan']), function ($query) use ($filter) {
+          ->when(!empty($filter['jenis_perbaikan']), function ($query) use ($filter) {
             return $query->where('jenis_perbaikan',($filter['jenis_perbaikan']));
+          })
+          ->when(!empty($filter['nomor_polisi']), function ($query) use ($filter) {
+            return $query->where('nomor_polisi',($filter['nomor_polisi']));
+          })
+          ->when(!empty($filter['sopir']), function ($query) use ($filter) {
+            return $query->where('nama_supir',($filter['sopir']));
           })
           ->when(!empty($filter['tempat_perbaikan']), function ($query) use ($filter) {
             return $query->where('tempat_perbaikan',($filter['tempat_perbaikan']));
@@ -58,7 +64,7 @@ class MaintenanceController extends Controller
             $endDate = $filter['tanggalend'];
             return $query->whereBetween('tanggal_perbaikan', [$startDate, $endDate]);
         })
-          
+
         ->paginate(50);
 
         $jenisperbaikan =  $this->masterjenis->get();
@@ -119,11 +125,11 @@ class MaintenanceController extends Controller
         $data->save();
         if($data->save()){
             return response()->json('Sukses');
-        }else{  
+        }else{
             return response()->json('Failed');
         }
     }
-    
+
     public function DetailData(Request $request){
         $data =  $this->maintenance
             ->where('id',$request->id)
@@ -160,7 +166,7 @@ class MaintenanceController extends Controller
             'modelperbaikan' => $modelperbaikan,
             'masterkendaraan' => $optionskendaraan
         ]);
-    }   
+    }
     public function EditData(Request $request){
         $data =  $this->maintenance
             ->where('id',$request->id)
@@ -183,9 +189,9 @@ class MaintenanceController extends Controller
             'data' => $data,
         ]);
     }
-    public function submitDataTempat(){
+    public function submitDataTempat(Request $request){
        $data =  $this->master_tempat_perbaikan;
-       $dat->nama =  $request->nama;
+       $data->nama =  $request->nama;
        $data->save();
     }
 }
