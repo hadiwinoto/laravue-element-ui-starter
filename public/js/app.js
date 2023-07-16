@@ -8898,6 +8898,10 @@ __webpack_require__.r(__webpack_exports__);
     this.getData();
   },
   methods: {
+    onClose: function onClose() {
+      this.showModal = false;
+      this.form.name = null;
+    },
     getData: function getData() {
       var _this = this;
 
@@ -8919,28 +8923,33 @@ __webpack_require__.r(__webpack_exports__);
         _this2.form.name = response.data.data.name;
         _this2.isLoadingContent = false;
       })["catch"](function (error) {
-        console.log("Gagal Memuta Data");
+        console.log("Gagal Memuat Data");
       });
     },
-    confirmDelete: function confirmDelete() {},
-    handleEdit: function handleEdit(id) {
+    confirmDelete: function confirmDelete() {
       var _this3 = this;
 
-      this.$http.post("/master-data/edit-tempat-perbaikan", id);
-      then(function (Response) {
-        _this3.$awn.success("Sukses Submit Data");
+      this.$confirm("This will permanently delete the Data. Continue?", "Warning", {
+        confirmButtonText: "OK",
+        cancelButtonText: "Cancel",
+        type: "warning",
+        center: true
+      }).then(function () {
+        _this3.$http.post("/master-data/delete-master-perbaikan/" + idjenis).then(function (Response) {
+          _this3.$awn.success("Success Delete Data!");
+
+          _this3.getData();
+
+          _this3.id = null;
+          _this3.form.name = null;
+        });
+      })["catch"](function () {
+        _this3.$awn.alert("Gagal Delete Data!");
+
+        _this3.id = null;
+        _this3.form.name = null;
 
         _this3.getData();
-
-        _this3.showModal = false;
-        _this3.buttonloading = "";
-        _this3.buttondisabled = false;
-      })["catch"](function (error) {
-        _this3.$awn.alert("Gagal Submit Data");
-
-        _this3.showModal = false;
-        _this3.buttonloading = "";
-        _this3.buttondisabled = false;
       });
     }
   },
@@ -100279,7 +100288,7 @@ var render = function () {
           attrs: { "based-on": _vm.showModal, title: "Input Data" },
           on: {
             close: function ($event) {
-              _vm.showModal = false
+              return _vm.onClose()
             },
           },
         },

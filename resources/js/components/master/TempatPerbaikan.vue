@@ -45,7 +45,7 @@
         </div>
       </div>
     </div>
-    <Modal :based-on="showModal" title="Input Data" @close="showModal = false">
+    <Modal :based-on="showModal" title="Input Data" @close="onClose()">
       <div class="row">
         <form @submit.prevent="onSubmit">
           <div class="form-group row mb-3">
@@ -102,6 +102,10 @@ export default {
     this.getData();
   },
   methods: {
+    onClose(){
+            this.showModal = false;
+            this.form.name = null;
+    },
     getData() {
       this.isLoadingContent = true;
       this.$http.get("/master-data/fetch-tempat-perbaikan").then((response) => {
@@ -122,24 +126,36 @@ export default {
           this.isLoadingContent = false;
         })
         .catch((error) => {
-          console.log("Gagal Memuta Data");
+          console.log("Gagal Memuat Data");
         });
     },
-    confirmDelete() {},
-    handleEdit(id) {
-      this.$http.post("/master-data/edit-tempat-perbaikan", id);
-      then((Response) => {
-        this.$awn.success("Sukses Submit Data");
-        this.getData();
-        this.showModal = false;
-        this.buttonloading = "";
-        this.buttondisabled = false;
-      }).catch((error) => {
-        this.$awn.alert("Gagal Submit Data");
-        this.showModal = false;
-        this.buttonloading = "";
-        this.buttondisabled = false;
-      });
+    confirmDelete(){
+        this.$confirm(
+                "This will permanently delete the Data. Continue?",
+                "Warning",
+                {
+                    confirmButtonText: "OK",
+                    cancelButtonText: "Cancel",
+                    type: "warning",
+                    center: true,
+                }
+            )
+                .then(() => {
+                    this.$http
+                        .post("/master-data/delete-master-perbaikan/" + idjenis)
+                        .then((Response) => {
+                            this.$awn.success("Success Delete Data!");
+                            this.getData();
+                            this.id = null;
+                            this.form.name = null;
+                        });
+                })
+                .catch(() => {
+                    this.$awn.alert("Gagal Delete Data!");
+                    this.id = null;
+                    this.form.name = null;
+                    this.getData();
+        });
     },
   },
   onSubmit() {
