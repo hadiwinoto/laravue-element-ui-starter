@@ -57,7 +57,7 @@
         <Modal
             :based-on="showModal"
             title="Input Data"
-            @close="showModal = false"
+            @close="onClose()"
         >
             <div class="row">
                 <form @submit.prevent="tambahData">
@@ -98,13 +98,14 @@
 </template>
 
 <script>
-import SideMenu from "./master/SideMenu.vue";
+import SideMenu from "./SideMenu.vue";
 export default {
     components: {
         SideMenu,
     },
     data() {
         return {
+            id:null,
             isLoadingContent: false,
             jenisperbaiakan: [],
             showModal: false,
@@ -114,8 +115,7 @@ export default {
             form: {
                 jenis_perbaikan: "",
             },
-            buttonloading: "",
-            buttondisabled: false,
+            buttonEdit: false
         };
     },
     created() {
@@ -129,15 +129,22 @@ export default {
                 this.isLoadingContent = false;
             });
         },
+        onClose(){
+            this.showModal = false;
+            this.form.jenis_perbaikan = null;
+        },
         handleEdit(id) {
+            this.showModal = true;
+            this.buttonEdit =  true;
             this.$http
-                .get("/master-data/fetch-perbaikan", {
+                .get("/master-data/jenis-perbaikan/byid", {
                     params: {
                         id: id,
                     },
                 })
                 .then((response) => {
-                    this.jenisperbaiakan = response.data;
+                    this.form.jenis_perbaikan =  response.data.name;
+                    this.id =  response.data.id;
                     this.isLoadingContent = false;
                 })
                 .catch(() => {
@@ -162,15 +169,24 @@ export default {
                         .then((Response) => {
                             this.$awn.success("Success Delete Data!");
                             this.getData();
+                            this.id = null;
+                            this.form.jenis_perbaikan = null;
                         });
                 })
                 .catch(() => {
                     this.$awn.alert("Gagal Delete Data!");
+                    this.id = null;
+                    this.form.jenis_perbaikan = null;
                     this.getData();
                 });
         },
         tambahData() {
-            let data = this.form;
+            let datajenis = this.form;
+            let idjenis = this.id;
+            let data = {
+                datajenis,
+                idjenis
+            }
             this.buttonloading = "spinner-border spinner-border-sm";
             this.buttondisabled = true;
             this.$http
@@ -181,12 +197,16 @@ export default {
                     this.showModal = false;
                     this.buttonloading = "";
                     this.buttondisabled = false;
+                    this.id = null;
+                    this.form.jenis_perbaikan = null;
                 })
                 .catch((error) => {
                     this.$awn.alert("Gagal Submit Data");
                     this.showModal = false;
                     this.buttonloading = "";
                     this.buttondisabled = false;
+                    this.id = null;
+                    this.form.jenis_perbaikan = null;
                 });
         },
     },

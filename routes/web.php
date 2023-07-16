@@ -29,6 +29,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/master-data', [App\Http\Controllers\MasterDataController::class, 'indexMasterData'])->name('masterdata');
     Route::get('/master-data/tempat-perbaikan', [App\Http\Controllers\MasterDataController::class, 'indexMasterTempatPerbaikan'])->name('indexMasterTempatPerbaikan');
     Route::get('/master-data/jenis-perbaikan', [App\Http\Controllers\MasterDataController::class,'indexPerbaikan'])->name('JenisPerbaikan');
+    Route::get('/master-data/jenis-perbaikan/byid', [App\Http\Controllers\MasterDataController::class,'getJenisPerbaikanByid'])->name('getJenisPerbaikanByid');
     Route::get('/master-data/model-perbaikan', [App\Http\Controllers\MasterDataController::class,'indexModelPerbaikan'])->name('indexModelPerbaikan');
     Route::get('/master-data/nopol-kendaraan', [App\Http\Controllers\MasterDataController::class,'indexModelNopol'])->name('indexModelNopol');
     Route::get('/master-data/driver', [App\Http\Controllers\MasterDataController::class,'indexModelDriver'])->name('indexModelDriver');

@@ -39,6 +39,11 @@ class MasterDataController extends Controller
 
         return response()->json($data);
     }
+    public function getJenisPerbaikanByid(Request $request){
+        $data =  $this->master_perbaikan->where('id',$request->id)->first();
+
+        return response()->json($data);
+    }
     public function DeleteJenisPerbaikan(Request $request){
         $data = $this->master_perbaikan->where('id',$request->idjenis)->first();
         $data->delete();
@@ -48,9 +53,15 @@ class MasterDataController extends Controller
         ]);
     }
     public function tambahJenisPerbaikan(Request $request){
-        $data = $this->master_perbaikan;
-        $data->name = $request->jenis_perbaikan;
-        $data->save();
+        if($request->idjenis != null){
+            $data = $this->master_perbaikan->where('id',$request->idjenis)->first();
+            $data->name = $request->datajenis['jenis_perbaikan'];
+            $data->save();
+        }else{
+            $data = $this->master_perbaikan;
+            $data->name = $request->datajenis['jenis_perbaikan'];
+            $data->save();
+        }
 
         return response()->json([
             'data' => $data,

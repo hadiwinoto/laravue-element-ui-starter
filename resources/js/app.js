@@ -41,8 +41,7 @@ Vue.component('dashboard-component', require('./components/Dashboard.vue').defau
 Vue.component('welcome-page-component', require('./components/partial/WelcomePage.vue').default);
 Vue.component('maintenance-component', require('./components/maintenance.vue').default);
 Vue.component('maintenance-component-detail', require('./components/detailMaintenance').default);
-Vue.component('master-component', require('./components/masterData.vue').default);
-Vue.component('jenis-perbaikan', require('./components/master/JenisPerbaikan.vue').default);
+Vue.component('master-component', require('./components/master/masterData.vue').default);
 Vue.component('tempat-perbaikan', require('./components/master/TempatPerbaikan.vue').default);
 Vue.component('model-perbaikan', require('./components/master/ModelPerbaikan.vue').default);
 Vue.component('nopol-kendaraan', require('./components/master/NopolKendaraan.vue').default);
