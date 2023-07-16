@@ -1,41 +1,18 @@
 <template>
-    <div>
-        <el-col>
-              <el-menu
-                default-active="1"
-                class="el-menu-vertical-demo"
-                @open="handleOpen"
-                @close="handleClose"
-              >
-              <el-menu-item index="1">
-                  <i class="el-icon-setting"></i>
-                  <a href="/master-data">Jenis Perbaikan</a>
-                </el-menu-item>
-                <el-menu-item index="2">
-                  <i class="el-icon-setting"></i>
-                  <a href="/master-data/tempat-perbaikan">Tempat Perbaikan</a>
-                </el-menu-item>
-                <!-- <el-menu-item index="3">
-                  <i class="el-icon-setting"></i>
-                  <a href="/master-data/model-perbaikan">Model Perbaikan</a>
-                </el-menu-item>
-                <el-menu-item index="4">
-                  <i class="el-icon-setting"></i>
-                  <a href="#">Nomor Polisi Kendaraan</a>
-                </el-menu-item>
-                <el-menu-item index="5">
-                  <i class="el-icon-setting"></i>
-                  <a href="#">Nomor Kendaraan</a>
-                </el-menu-item>
-                <el-menu-item index="6">
-                  <i class="el-icon-setting"></i>
-                  <a href="#">Nama Supir</a>
-                </el-menu-item>
-                <el-menu-item index="7">
-                  <i class="el-icon-setting"></i>
-                  <a href="#">Nama Montir</a>
-                </el-menu-item> -->
-              </el-menu>
-            </el-col>
+    <div class="col-3">
+        <div class="list-group" id="list-tab" role="tablist">
+            <a class="list-group-item list-group-item-action active" href="/master-data">
+                Jenis Perbaikan
+            </a>
+            <a class="list-group-item list-group-item-action" href="/master-data/tempat-perbaikan">
+                Tempat Perbaikan
+            </a>
+            <a class="list-group-item list-group-item-action"  href="/master-data/nopol-kendaraan" role="tab" aria-controls="list-messages">
+                Nomor Polisi
+            </a>
+            <a class="list-group-item list-group-item-action"  href="/master-data/driver" role="tab" aria-controls="list-settings">
+                Driver
+            </a>
+        </div>
     </div>
 </template>

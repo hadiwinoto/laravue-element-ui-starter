@@ -28,9 +28,15 @@ class MasterDataController extends Controller
     public function indexModelPerbaikan(){
         return view('master.modelperbaikan');
     }
+    public function indexModelNopol(){
+        return view('master.nopol');
+    }
+    public function indexModelDriver(){
+        return view('master.driver');
+    }
     public function getJenisPerbaikan(){
         $data =  $this->master_perbaikan->get();
-        
+
         return response()->json($data);
     }
     public function DeleteJenisPerbaikan(Request $request){
@@ -83,5 +89,5 @@ class MasterDataController extends Controller
             'message' => 'Sukses Edit Data'
         ]);
     }
-    
+
 }

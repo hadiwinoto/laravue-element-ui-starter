@@ -22,36 +22,21 @@ import '@kouts/vue-modal/dist/vue-modal.css'
 import vSelect from "vue-select";
 import VueElementLoading from "vue-element-loading";
 
-Vue.component("VueElementLoading", VueElementLoading);
-
-Vue.component("v-select", vSelect);
-
-Vue.component('Modal', VueModal)
-
-Vue.use(VueAxios, axios)
 
 
 import VueAWN from 'vue-awesome-notifications';
+import AWN from 'awesome-notifications';
+const awn = new AWN();
 import 'vue-awesome-notifications/dist/styles/style.css';
 
-Vue.component('pagination', require('laravel-vue-pagination'));
 
+Vue.component("VueElementLoading", VueElementLoading);
+Vue.component("v-select", vSelect);
+Vue.component('Modal', VueModal)
+Vue.use(VueAxios, axios)
 Vue.use(ElementUI, { locale })
-
-const option_alert = {
-    position: 'bottom-right',
-    labels: {
-        success: 'Success',
-        alert: 'Oops...'
-    },
-    duration: 700
-};
-Vue.use(VueAWN, option_alert);
-
-import * as mdb from 'mdb-ui-kit'; // lib
-import { Input } from 'mdb-ui-kit'; // module
-
-
+Vue.use(VueAWN, awn);
+Vue.component('pagination', require('laravel-vue-pagination'));
 Vue.component('dashboard-component', require('./components/Dashboard.vue').default);
 Vue.component('welcome-page-component', require('./components/partial/WelcomePage.vue').default);
 Vue.component('maintenance-component', require('./components/maintenance.vue').default);
@@ -60,8 +45,8 @@ Vue.component('master-component', require('./components/masterData.vue').default
 Vue.component('jenis-perbaikan', require('./components/master/JenisPerbaikan.vue').default);
 Vue.component('tempat-perbaikan', require('./components/master/TempatPerbaikan.vue').default);
 Vue.component('model-perbaikan', require('./components/master/ModelPerbaikan.vue').default);
-
-
+Vue.component('nopol-kendaraan', require('./components/master/NopolKendaraan.vue').default);
+Vue.component('master-driver', require('./components/master/Driver.vue').default);
 
 
 Vue.component('subheader-component', require('./components/partial/Subheader.vue').default);

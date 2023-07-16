@@ -38,10 +38,9 @@ class MaintenanceController extends Controller
     public function getData(Request $request){
         $filter = $request->all();
         $data =  $this->maintenance
-        ->when(!empty($filter['tanggal_perbaikan']) && !empty($filter['tanggal_selesai']), function ($query) use ($filter) {
+          ->when(!empty($filter['tanggal_perbaikan']) && !empty($filter['tanggal_selesai']), function ($query) use ($filter) {
             $startdate = Carbon::parse($filter['tanggal_perbaikan'])->format('y-m-d');
             $enddate = Carbon::parse($filter['tanggal_selesai'])->format('y-m-d');
-
             return $query->whereBetween('tanggal_selesai', [$startdate, $enddate]);
           })
           ->when(!empty($filter['jenis_perbaikan']), function ($query) use ($filter) {
@@ -51,7 +50,7 @@ class MaintenanceController extends Controller
             return $query->where('nomor_polisi',($filter['nomor_polisi']));
           })
           ->when(!empty($filter['sopir']), function ($query) use ($filter) {
-            return $query->where('nama_supir',($filter['sopir']));
+            return $query->where('nama_supir', 'like', '%' . $filter['sopir'] . '%');
           })
           ->when(!empty($filter['tempat_perbaikan']), function ($query) use ($filter) {
             return $query->where('tempat_perbaikan',($filter['tempat_perbaikan']));
@@ -64,7 +63,6 @@ class MaintenanceController extends Controller
             $endDate = $filter['tanggalend'];
             return $query->whereBetween('tanggal_perbaikan', [$startDate, $endDate]);
         })
-
         ->paginate(50);
 
         $jenisperbaikan =  $this->masterjenis->get();

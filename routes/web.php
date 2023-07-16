@@ -30,6 +30,8 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/master-data/tempat-perbaikan', [App\Http\Controllers\MasterDataController::class, 'indexMasterTempatPerbaikan'])->name('indexMasterTempatPerbaikan');
     Route::get('/master-data/jenis-perbaikan', [App\Http\Controllers\MasterDataController::class,'indexPerbaikan'])->name('JenisPerbaikan');
     Route::get('/master-data/model-perbaikan', [App\Http\Controllers\MasterDataController::class,'indexModelPerbaikan'])->name('indexModelPerbaikan');
+    Route::get('/master-data/nopol-kendaraan', [App\Http\Controllers\MasterDataController::class,'indexModelNopol'])->name('indexModelNopol');
+    Route::get('/master-data/driver', [App\Http\Controllers\MasterDataController::class,'indexModelDriver'])->name('indexModelDriver');
     Route::get('/master-data/fetch-perbaikan', [App\Http\Controllers\MasterDataController::class,'getJenisPerbaikan'])->name('getJenisPerbaikan');
     Route::post('/master-data/delete-master-perbaikan/{idjenis}', [App\Http\Controllers\MasterDataController::class,'DeleteJenisPerbaikan'])->name('DeleteJenisPerbaikan');
     Route::post('/master-data/delete-master-perbaikan/data/tambah', [App\Http\Controllers\MasterDataController::class,'tambahJenisPerbaikan'])->name('tambahJenisPerbaikan');
@@ -38,7 +40,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::post('/master-data/edit-tempat-perbaikan', [App\Http\Controllers\MasterDataController::class,'editDataTempat'])->name('editDataTempat');
     Route::get('/master-data/fetch-tempat-perbaikan-byid', [App\Http\Controllers\MasterDataController::class,'getTempatPerbaikanByid'])->name('getTempatPerbaikanByid');
 
-    //maintenance    
+    //maintenance
     Route::get('/maintenance/create', [App\Http\Controllers\Maintenance\MaintenanceController::class,'showZonaSatu'])->name('showZonaSatu');
     Route::get('/maintenance/get/alldata', [App\Http\Controllers\Maintenance\MaintenanceController::class,'getData'])->name('getData');
     Route::post('/maintenance/submit', [App\Http\Controllers\Maintenance\MaintenanceController::class,'submitMaintenance'])->name('submitMaintenance');
