@@ -7,6 +7,7 @@ use App\Models\Maintenance\MmaintenanceModel;
 use App\Models\Master\MjenisPerbaikanModel;
 use App\Models\Master\MmasterKendaraan;
 use App\Models\Master\MtempatPerbaikan;
+use App\Models\Master\MmasterDriver;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
@@ -19,6 +20,7 @@ class MaintenanceController extends Controller
         $this->masterjenis =  new MjenisPerbaikanModel();
         $this->master_tempat_perbaikan =  new MtempatPerbaikan();
         $this->master_kendaraan =  new MmasterKendaraan();
+        $this->master_driver            =  new MmasterDriver();
     }
     public function indexMaintenance(){
 
@@ -69,6 +71,7 @@ class MaintenanceController extends Controller
         $master_tempat_perbaikan =  $this->master_tempat_perbaikan->get();
         $modelperbaikan = ['Dikerjakan Sendiri','Bengkel Luar'];
         $masterkendaraan =  $this->master_kendaraan->get();
+        $masterdriver = $this->master_driver->get();
 
         //jenis perbaikan
         $optionsjenis = [];
@@ -87,6 +90,11 @@ class MaintenanceController extends Controller
             $optionskendaraan[] = $kendaraan->no_polisi;
         }
 
+        $optionsdriver = [];
+        foreach($masterdriver as $driver){
+            $optionsdriver[] = $driver->nama;
+        }
+
         $admin =  Auth::user()->isAdmin();
         $user =  Auth::user()->isUser();
 
@@ -96,6 +104,7 @@ class MaintenanceController extends Controller
             'master_tempat_perbaikan' => $optionstempat,
             'modelperbaikan'  => $modelperbaikan,
             'masterkendaraan' => $optionskendaraan,
+            'optionsdriver'  => $optionsdriver,
             'admin'           => $admin,
             'user'            => $user
         ]);

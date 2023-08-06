@@ -38,8 +38,20 @@ Route::group(['middleware' => ['auth']], function () {
     Route::post('/master-data/delete-master-perbaikan/data/tambah', [App\Http\Controllers\MasterDataController::class,'tambahJenisPerbaikan'])->name('tambahJenisPerbaikan');
     Route::get('/master-data/fetch-tempat-perbaikan', [App\Http\Controllers\MasterDataController::class,'getTempatPerbaikan'])->name('getTempatPerbaikan');
     Route::post('/master-data/submit-tempat-perbaikan', [App\Http\Controllers\MasterDataController::class,'tambahDataTempat'])->name('tambahDataTempat');
+    Route::post('/master-data/tempat-perbaikan.delete/{id}', [App\Http\Controllers\MasterDataController::class,'deleteDAtatempat'])->name('deleteDAtatempat');
     Route::post('/master-data/edit-tempat-perbaikan', [App\Http\Controllers\MasterDataController::class,'editDataTempat'])->name('editDataTempat');
     Route::get('/master-data/fetch-tempat-perbaikan-byid', [App\Http\Controllers\MasterDataController::class,'getTempatPerbaikanByid'])->name('getTempatPerbaikanByid');
+    Route::get('/master-data/fetch-nomor-kendaraan', [App\Http\Controllers\MasterDataController::class,'getDataNomorKendaraan'])->name('getDataNomorKendaraan');
+    Route::get('/master-data/fetch-nomor-kendaraan-byid', [App\Http\Controllers\MasterDataController::class,'getDataNomorKendaraanByid'])->name('getDataNomorKendaraanByid');
+    Route::post('/master-data/submit-nomor-kendaraan', [App\Http\Controllers\MasterDataController::class,'submitNopol'])->name('submitNopol');
+    Route::post('/master-data/submit-nomor-kendaraan-delete/{id}', [App\Http\Controllers\MasterDataController::class,'deleteData'])->name('deleteData');
+
+    Route::get('/master-data/fetch-data-driver', [App\Http\Controllers\MasterDataController::class,'getDataDriver'])->name('getDataDriver');
+    Route::get('/master-data/fetch-data-driver-byid', [App\Http\Controllers\MasterDataController::class,'getDataDriverByid'])->name('getDataDriverByid');
+    Route::post('/master-data/submit-data-driver', [App\Http\Controllers\MasterDataController::class,'submitDataDriver'])->name('submitDataDriver');
+    Route::post('/master-data/submit-driver-delete/{id}', [App\Http\Controllers\MasterDataController::class,'deleteDataDriver'])->name('deleteDataDriver');
+
+
 
     //maintenance
     Route::get('/maintenance/create', [App\Http\Controllers\Maintenance\MaintenanceController::class,'showZonaSatu'])->name('showZonaSatu');

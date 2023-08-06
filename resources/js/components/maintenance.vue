@@ -41,7 +41,7 @@
                     />
                     <div class="table-responsive-md">
                         <div class="col-md-12">
-                            <div class="row mb-3">
+                            <div class="row mb-2">
                                 <div class="col">
                                     <label>Tanggal Perbaikan</label>
                                     <DatePicker
@@ -85,35 +85,48 @@
                                 </div>
                                 <div class="col">
                                     <label>Nomor Polisi</label>
-                                    <input
+                                    <v-select
+                                        :options="optionskendaraan"
+                                        @input="onChangeNopol($event)"
+                                        v-model="filter.nomor_polisi"
+                                        type="text"
+                                    ></v-select>
+                                    <!-- <input
                                         type="text"
                                         @keyup.enter="fetchData"
                                         class="form-control"
                                         v-model="filter.nomor_polisi"
                                         placeholder="Nomor Polisi"
-                                    />
+                                    /> -->
                                 </div>
                                 <div class="col">
                                     <label>Sopir</label>
-                                    <input
-                                        type="text"
-                                        @keyup.enter="fetchData"
-                                        class="form-control"
+                                    <v-select
+                                        :options="optionsdriver"
+                                        @input="onChangeDriver($event)"
                                         v-model="filter.sopir"
-                                        placeholder="Sopir"
-                                    />
+                                        type="text"
+                                    ></v-select>
                                 </div>
-                                <div class="col">
+                            </div>
+                             <div class="col mb-2">
                                     <button
                                         @click="fetchData"
-                                        class="btn btn-primary btn-sm mt-4"
+                                        class="btn btn-primary btn-sm"
                                         placeholder="Sopir"
                                     >
                                         <i class="el-icon-search text-white"></i
                                         >Cari
+                                    </button> |
+                                    <button
+                                        @click="clearFIlter"
+                                        class="btn btn-danger btn-sm"
+                                        placeholder="Sopir"
+                                    >
+                                        <i class="el-icon-delete text-white"></i
+                                        >Clear
                                     </button>
                                 </div>
-                            </div>
                         </div>
 
                         <table class="table text-nowrap">
@@ -243,25 +256,6 @@
                             </tbody>
                         </table>
                     </div>
-                    <!-- <nav aria-label="Page navigation example">
-              <ul class="pagination">
-                <li class="page-item">
-                  <a class="page-link" href="#" aria-label="Previous">
-                    <span aria-hidden="true">&laquo;</span>
-                    <span class="sr-only">Previous</span>
-                  </a>
-                </li>
-                <li class="page-item"><a class="page-link" href="#">1</a></li>
-                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                <li class="page-item">
-                  <a class="page-link" href="#" aria-label="Next">
-                    <span aria-hidden="true">&raquo;</span>
-                    <span class="sr-only">Next</span>
-                  </a>
-                </li>
-              </ul>
-            </nav> -->
                     <pagination
                         :data="maintenance"
                         @pagination-change-page="fetchData"
@@ -353,11 +347,11 @@
                                     >Nomor Polisi</label
                                 >
                                 <div class="col-sm-8">
-                                    <input
-                                        type="text"
+                                    <v-select
+                                        :options="optionskendaraan"
                                         v-model="form.no_polisi"
-                                        class="form-control"
-                                    />
+                                        type="text"
+                                    ></v-select>
                                 </div>
                             </div>
                             <div class="form-group row mb-3">
@@ -365,11 +359,11 @@
                                     >Nama Supir</label
                                 >
                                 <div class="col-sm-8">
-                                    <input
-                                        type="text"
+                                    <v-select
+                                        :options="optionsdriver"
                                         v-model="form.nama_supir"
-                                        class="form-control"
-                                    />
+                                        type="text"
+                                    ></v-select>
                                 </div>
                             </div>
                             <div class="form-group row mb-3">
@@ -515,6 +509,7 @@ export default {
             optionstempat: [],
             optionsmodelperbaikan: [],
             optionskendaraan: [],
+            optionsdriver:[],
             form: {},
             buttonloading: "",
             buttondisabled: false,
@@ -553,6 +548,7 @@ export default {
                     this.optionstempat = response.data.master_tempat_perbaikan;
                     this.optionsmodelperbaikan = response.data.modelperbaikan;
                     this.optionskendaraan = response.data.masterkendaraan;
+                    this.optionsdriver = response.data.optionsdriver;
                     this.meta.current_page = response.data.data.current_page;
                     this.meta.per_page = response.data.data.per_page;
                     this.meta.total = response.data.data.total;
@@ -586,13 +582,29 @@ export default {
                     });
             }, 500);
         },
+        onChangeDriver(event){
+            if (event === null) {
+                this.filter.sopir = null;
+            } else {
+                this.filter.sopir = event;
+            }
+            // this.fetchData();
+        },
+        onChangeNopol(event){
+            if (event === null) {
+                this.filter.nomor_polisi = null;
+            } else {
+                this.filter.nomor_polisi = event;
+            }
+            // this.fetchData();
+        },
         onChangeJenis(event) {
             if (event === null) {
                 this.filter.jenis_perbaikan = null;
             } else {
                 this.filter.jenis_perbaikan = event;
             }
-            this.fetchData();
+            // this.fetchData();
         },
         onChangeTempat(event) {
             if (event === null) {
@@ -600,7 +612,7 @@ export default {
             } else {
                 this.filter.tempat_perbaikan = event;
             }
-            this.fetchData();
+            // this.fetchData();
         },
         handleChangeTanggalStart(event) {
             if (event === null) {
@@ -622,7 +634,7 @@ export default {
             } else {
                 this.filter.model_perbaikan = event;
             }
-            this.fetchData();
+            // this.fetchData();
         },
         formatnumberindo(num) {
             if (typeof num === "undefined" || num === null) {
@@ -653,6 +665,18 @@ export default {
                     this.$awn.error("Gagal Import Data!");
                 });
         },
+        clearFIlter(){
+            this.filter = {
+                jenis_perbaikan: "",
+                tempat_perbaikan: "",
+                model_perbaikan: "",
+                nomor_polisi: "",
+                sopir: "",
+                tanggalstart: "",
+                tanggalend: "",
+            };
+            this.fetchData();
+        }
     },
 };
 </script>

@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Master\MjenisPerbaikanModel;
 use App\Models\Master\MtempatPerbaikan;
+use App\Models\Master\MmasterKendaraan;
+use App\Models\Master\MmasterDriver;
 use Illuminate\Http\Request;
 
 class MasterDataController extends Controller
@@ -12,6 +14,8 @@ class MasterDataController extends Controller
     {
         $this->master_perbaikan         =  new MjenisPerbaikanModel();
         $this->master_tempat_perbaikan  =  new MtempatPerbaikan();
+        $this->master_kendaraan         =  new MmasterKendaraan();
+        $this->master_driver            =  new MmasterDriver();
     }
     public function indexMasterData(){
 
@@ -83,9 +87,20 @@ class MasterDataController extends Controller
         ]);
     }
     public function tambahDataTempat(Request $request){
-        $data =  $this->master_tempat_perbaikan;
-        $data->nama = $request->form['name'];
+        if($request->id === null){
+            $data =  $this->master_tempat_perbaikan;
+        }else{
+            $data =  $this->master_tempat_perbaikan->where('id',$request->id)->first();
+        }
+        $data->name = $request->form['name'];
         $data->save();
+        return response()->json([
+            'data' => $data
+        ]);
+    }
+    public function deleteDAtatempat(Request $request){
+        $data =  $this->master_tempat_perbaikan->where('id',$request->id)->first();
+        $data->delete();
         return response()->json([
             'data' => $data
         ]);
@@ -93,12 +108,69 @@ class MasterDataController extends Controller
     public function editDataTempat(Request $request){
         $data =  $this->master_tempat_perbaikan
         ->where('id',$request->id)->first();
-
+        $data->name = $request->form['name'];
+        $data->save();
 
         return response()->json([
             'data' => $data,
             'message' => 'Sukses Edit Data'
         ]);
+    }
+    public function getDataNomorKendaraan(){
+        $data  =  $this->master_kendaraan->get();
+        return response()->json([
+            'data' => $data
+        ]);
+    }
+    public function getDataNomorKendaraanByid(Request $request){
+        $data  =  $this->master_kendaraan->where('id',$request->id)->first();
+        return response()->json($data);
+    }
+    public function submitNopol(Request $request){
+        if($request->id != null){
+            $data  =  $this->master_kendaraan->where('id',$request->id)->first();
+        }else{
+            $data  =  $this->master_kendaraan;
+        }
+        $data->no_polisi =  $request->form['nomor'];
+        $data->save();
+        return response()->json($data);
+    }
+    public function deleteData(Request $request){
+        $data  =  $this->master_kendaraan->where('id',$request->id)->first();
+        $data->delete();
+        return response()->json(
+            "Sukses"
+        );
+
+    }
+    public function getDataDriver(){
+        $data  =  $this->master_driver->get();
+        return response()->json([
+            'data' => $data
+        ]);
+    }
+    public function getDataDriverByid(Request $request){
+        $data  =  $this->master_driver->where('id',$request->id)->first();
+        return response()->json($data);
+    }
+    public function submitDataDriver(Request $request){
+        if($request->id != null){
+            $data  =  $this->master_driver->where('id',$request->id)->first();
+        }else{
+            $data  =  $this->master_driver;
+        }
+        $data->nama =  $request->form['nama'];
+        $data->save();
+        return response()->json($data);
+    }
+    public function deleteDataDriver(Request $request){
+        $data  =  $this->master_driver->where('id',$request->id)->first();
+        $data->delete();
+        return response()->json(
+            "Sukses"
+        );
+
     }
 
 }
