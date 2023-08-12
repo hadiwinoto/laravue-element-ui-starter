@@ -6,6 +6,14 @@
                     <div slot="header">
                         <span>History Maintenance</span>
                         <div style="float: right">
+                            <el-button type="info" size="small" class="ml-3">
+                                <el-link
+                                    href="/export/data"
+                                    style="color: white; text-decoration: none"
+                                >
+                                    Export
+                                </el-link>
+                            </el-button>
                             <el-button type="success" size="small" class="ml-3">
                                 <el-link
                                     href="/download/template"

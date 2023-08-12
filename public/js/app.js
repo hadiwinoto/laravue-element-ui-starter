@@ -8278,6 +8278,14 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -99065,6 +99073,32 @@ var render = function () {
                   "div",
                   { staticStyle: { float: "right" } },
                   [
+                    _c(
+                      "el-button",
+                      {
+                        staticClass: "ml-3",
+                        attrs: { type: "info", size: "small" },
+                      },
+                      [
+                        _c(
+                          "el-link",
+                          {
+                            staticStyle: {
+                              color: "white",
+                              "text-decoration": "none",
+                            },
+                            attrs: { href: "/export/data" },
+                          },
+                          [
+                            _vm._v(
+                              "\n                                    Export\n                                "
+                            ),
+                          ]
+                        ),
+                      ],
+                      1
+                    ),
+                    _vm._v(" "),
                     _c(
                       "el-button",
                       {
